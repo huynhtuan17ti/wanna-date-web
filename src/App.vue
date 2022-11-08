@@ -1,5 +1,5 @@
 <template>
-    <base-side />
+    <router-view />
 </template>
 
 <style>

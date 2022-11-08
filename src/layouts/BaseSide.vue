@@ -32,7 +32,7 @@ const handleClose = (key: string, keyPath: string[]) => {
     background-color: white;
     border-radius: 0px 15px 15px 0px;
     box-shadow: 5px 0px 4px rgba(0, 0, 0, 0.25);
-    width: 25vw;
+    width: 30vw;
     height: 100vh;
     &__header {
         border-radius: 0px 15px 0px 0px;
