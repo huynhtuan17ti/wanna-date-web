@@ -9,6 +9,7 @@
             <p class="bar-container__match-area__title">Dicover new matches</p>
         </div>
         <p class="bar-container__message-header">Messages</p>
+        <message-tab user-name="Emilia" recent-message="Love you <3"></message-tab>
     </div>
 </template>
 
@@ -47,7 +48,6 @@ const handleClose = (key: string, keyPath: string[]) => {
             margin-right: 1vw;
         }
         &__user-name {
-            font-size: inherit;
             font-size: 1.2em;
             color: white;
         }

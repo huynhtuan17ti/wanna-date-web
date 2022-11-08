@@ -9,6 +9,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BaseHeader: typeof import('./layouts/BaseHeader.vue')['default']
     BaseSide: typeof import('./layouts/BaseSide.vue')['default']
+    ElBadge: typeof import('element-plus/es')['ElBadge']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
@@ -19,6 +20,7 @@ declare module '@vue/runtime-core' {
     ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElTag: typeof import('element-plus/es')['ElTag']
-    HelloWorld: typeof import('./components/HelloWorld.vue')['default']
+    MessageBlock: typeof import('./components/MessageTab.vue')['default']
+    MessageTab: typeof import('./components/MessageTab.vue')['default']
   }
 }
