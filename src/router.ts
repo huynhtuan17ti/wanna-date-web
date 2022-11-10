@@ -4,6 +4,12 @@ const routes: RouteRecordRaw[] = [
     {
         path: '/',
         component: () => import('./layouts/MainLayout.vue'),
+        children: [
+            {
+                path: 'match',
+                component: () => import('./views/MatchPage.vue'),
+            },
+        ],
     },
 ]
 

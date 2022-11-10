@@ -13,7 +13,7 @@
 const props = defineProps<{
     userName: string
     recentMessage: string
-    notification: boolean
+    // notification: boolean
 }>()
 </script>
 

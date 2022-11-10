@@ -4,7 +4,7 @@
             <img class="bar-container__header__image" src="src/assets/user.png" alt="Avatar" />
             <p class="bar-container__header__user-name">User name</p>
         </div>
-        <div class="bar-container__match-area">
+        <div :class="{ 'bar-container__match-area': true, 'bar-container__match-area-active': isMatchActive }" @click="onClickMatchArea()">
             <img class="bar-container__match-area__image" src="src/assets/match-cards.png" alt="Match" />
             <p class="bar-container__match-area__title">Dicover new matches</p>
         </div>
@@ -15,14 +15,14 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { Location, Document, Menu as IconMenu, Setting } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router'
 
-const isCollapse = ref(true)
-const handleOpen = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
+const isMatchActive = ref(false)
+const router = useRouter()
+
+const onClickMatchArea = () => {
+    isMatchActive.value = true
+    router.push('/match')
 }
 </script>
 
@@ -67,7 +67,8 @@ const handleClose = (key: string, keyPath: string[]) => {
             font-size: 1.2em;
         }
     }
-    &__match-area:hover {
+    &__match-area:hover,
+    &__match-area-active {
         background-color: white;
         background-image: linear-gradient(273.03deg, #d95855 0%, rgba(237, 176, 175, 0.473427) 24.81%, rgba(255, 255, 255, 0) 99.63%);
     }
