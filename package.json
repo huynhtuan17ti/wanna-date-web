@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "element-plus": "^2.2.14",
-    "pinia": "^2.0.23",
+    "pinia": "^2.0.26",
     "vue": "^3.2.37",
     "vue-router": "4",
     "vue-tinder": "^3.0.0-alpha.2"

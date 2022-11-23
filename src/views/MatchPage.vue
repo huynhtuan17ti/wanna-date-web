@@ -1,8 +1,8 @@
 <template>
     <div class="container">
         <vue-tinder ref="tinder" key-name="key" v-model:queue="queue" :max="3" :offset-y="10" allow-down @submit="onSubmit">
-            <template #default>
-                <user-card></user-card>
+            <template #default="{ data }">
+                <user-card :user-id="data.user_id"></user-card>
             </template>
             <template #like></template>
             <template #nope></template>
@@ -13,33 +13,41 @@
             </template>
         </vue-tinder>
         <div class="btns">
-            <img src="src/assets/rewind.png" />
-            <img src="src/assets/nope.png" />
-            <img src="src/assets/super-like.png" />
-            <img src="src/assets/like.png" />
-            <img src="src/assets/help.png" />
+            <img src="src/assets/rewind.png" @click="decide('rewind')" />
+            <img src="src/assets/nope.png" @click="decide('nope')" />
+            <img src="src/assets/super-like.png" @click="decide('super')" />
+            <img src="src/assets/like.png" @click="decide('like')" />
+            <img src="src/assets/help.png" @click="decide('help')" />
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
 import VueTinder from 'vue-tinder'
-import { ref } from 'vue'
-const queue = ref([])
-const history = []
+import { useSuggestionStore } from '../stores/suggestion'
+import { onMounted, ref } from 'vue'
+
+const queue = ref<{ key: number; user_id: string }[]>([])
+const history = ref<{ key: number; user_id: string }[]>([])
 const tinder = ref(null)
-for (let i = 0; i < 15; i++) {
-    queue.value.push({ key: i })
-}
+const suggestionStore = useSuggestionStore()
+
+suggestionStore.ids.forEach((id, index) => {
+    queue.value.push({ key: index, user_id: id })
+})
+
 const onSubmit = ({ type, key, item }) => {
-    history.push(item)
+    history.value.push(item)
 }
-const decide = (choice) => {
+const decide = (choice: string) => {
     if (choice === 'rewind') {
-        if (history.length) {
-            const item = history.pop()
+        if (history.value.length) {
+            const item = history.value.pop()
             tinder.value.rewind([item])
         }
+        return
+    } else if (choice == 'help') {
+        // TODO: handle help
         return
     }
     tinder.value.decide(choice)

@@ -1,9 +1,9 @@
 <template>
     <div class="card-container">
         <div class="card-wrapper">
-            <el-image class="card-wrapper__header-image" :src="url" fit="cover"></el-image>
+            <el-image class="card-wrapper__header-image" :src="user.image_url" fit="cover"></el-image>
             <div class="card-wrapper__text-container">
-                <span class="card-wrapper__text-container__user-header">XXXX, 20</span>
+                <span class="card-wrapper__text-container__user-header">{{ user.name }}, {{ user.age }}</span>
                 <span class="card-wrapper__text-container__user-info">Lovely cute girl</span>
             </div>
         </div>
@@ -11,7 +11,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useSuggestionStore } from '../stores/suggestion'
+const props = defineProps<{
+    userId: string
+}>()
+
+const suggestionStore = useSuggestionStore()
+const user = computed(() => suggestionStore.getUserFromId(props.userId))
+console.log(user.value)
 const url = ref('https://i.pinimg.com/736x/6e/a9/85/6ea985f92af67dabd2398b4d084b6f06.jpg')
 </script>
 
