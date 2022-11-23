@@ -28,6 +28,7 @@ declare module '@vue/runtime-core' {
     MessageTab: typeof import('./components/MessageTab.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SettingPage: typeof import('./views/SettingPage.vue')['default']
     UserCard: typeof import('./components/UserCard.vue')['default']
   }
 }

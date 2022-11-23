@@ -9,6 +9,10 @@ const routes: RouteRecordRaw[] = [
                 path: 'match',
                 component: () => import('./views/MatchPage.vue'),
             },
+            {
+                path: 'setting',
+                component: () => import('./views/SettingPage.vue'),
+            },
         ],
     },
 ]

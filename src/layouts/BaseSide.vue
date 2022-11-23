@@ -1,8 +1,9 @@
 <template>
     <div class="bar-container">
         <div class="bar-container__header">
-            <img class="bar-container__header__image" src="src/assets/user.png" alt="Avatar" />
-            <p class="bar-container__header__user-name">User name</p>
+            <img class="bar-container__header__image" src="src/assets/avatar.jpg" alt="Avatar" />
+            <p class="bar-container__header__user-name">Kkura</p>
+            <el-image class="bar-container__header__user-setting" src="src/assets/user_setting.png" @click="onClickSettingButton()"></el-image>
         </div>
         <div :class="{ 'bar-container__match-area': true, 'bar-container__match-area-active': isMatchActive }" @click="onClickMatchArea()">
             <img class="bar-container__match-area__image" src="src/assets/match-cards.png" alt="Match" />
@@ -23,6 +24,10 @@ const router = useRouter()
 const onClickMatchArea = () => {
     isMatchActive.value = true
     router.push('/match')
+}
+
+const onClickSettingButton = () => {
+    router.push('/setting')
 }
 </script>
 
@@ -51,12 +56,18 @@ const onClickMatchArea = () => {
             font-size: 1.2em;
             color: white;
         }
+        &__user-setting {
+            width: 6vh;
+            margin-left: 10vw;
+            cursor: pointer;
+        }
     }
     &__match-area {
-        height: 12vh;
+        height: 11vh;
         background-color: #eef4f6;
         align-items: center;
         display: flex;
+        cursor: pointer;
         &__image {
             height: 7vh;
             margin-left: 3vw;
