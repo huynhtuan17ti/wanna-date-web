@@ -15,7 +15,9 @@ export default defineConfig({
     resolve: {
         alias: {
             '~/': `${pathSrc}/`,
+            vue: path.resolve('./node_modules/vue'),
         },
+        extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     },
     css: {
         preprocessorOptions: {

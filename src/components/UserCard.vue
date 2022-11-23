@@ -18,8 +18,8 @@ const url = ref('https://i.pinimg.com/736x/6e/a9/85/6ea985f92af67dabd2398b4d084b
 <style scoped lang="scss">
 .card-container {
     margin-top: 5vh;
-    width: 25vw;
-    height: 80vh;
+    width: 22vw;
+    height: 75vh;
     background: linear-gradient(to right, #d85076, #d5d850);
     border-radius: 20px;
     padding: 0.2em;
