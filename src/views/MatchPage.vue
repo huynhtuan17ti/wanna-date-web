@@ -56,6 +56,7 @@ const decide = (choice: string) => {
 
 <style scoped lang="scss">
 .container {
+    margin-top: 5vh;
     display: flex;
     justify-content: center;
     height: 100vh;
