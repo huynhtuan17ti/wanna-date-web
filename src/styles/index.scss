@@ -1,12 +1,17 @@
 // import dark theme
 @use 'element-plus/theme-chalk/src/dark/css-vars.scss' as *;
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
+@import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded');
+@import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Sharp');
 
 // :root {
 //   --ep-color-primary: red;
 // }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
     -webkit-font-smoothing: antialiased;

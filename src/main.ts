@@ -17,9 +17,23 @@ import 'uno.css'
 // If you want to use ElMessage, import it.
 import 'element-plus/theme-chalk/src/message.scss'
 
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+/* import specific icons */
+// import { faGear } from '@fortawesome/free-solid-svg-icons'
+
+/* add icons to the library */
+library.add()
+
 const pinia = createPinia()
 const app = createApp(App)
 app.use(pinia)
 app.use(router)
 app.use(ElementPlus)
+/* add font awesome icon component */
+app.component('font-awesome-icon', FontAwesomeIcon)
 app.mount('#app')

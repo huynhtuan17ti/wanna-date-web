@@ -3,10 +3,12 @@
         <div class="bar-container__header">
             <img class="bar-container__header__image" src="../assets/avatar.jpg" alt="Avatar" />
             <p class="bar-container__header__user-name">Kkura</p>
-            <img class="bar-container__header__user-setting" src="../assets/setting.png" @click="onClickSettingButton()" />
+            <span class="material-symbols-rounded bar-container__header__user-setting" @click="onClickSettingButton()">manage_accounts</span>
+            <!-- <img class="bar-container__header__user-setting" src="../assets/setting.png" @click="onClickSettingButton()" /> -->
         </div>
         <div :class="{ 'bar-container__match-area': true, 'bar-container__match-area-active': isMatchActive }" @click="onClickMatchArea()">
-            <img class="bar-container__match-area__image" src="../assets/match-cards.png" alt="Match" />
+            <span class="material-symbols-sharp bar-container__match-area__image">view_carousel</span>
+            <!-- <img class="bar-container__match-area__image" src="../assets/match-cards.png" alt="Match" /> -->
             <p class="bar-container__match-area__title">Dicover new matches</p>
         </div>
         <p class="bar-container__message-header">Messages</p>
@@ -27,6 +29,7 @@ const onClickMatchArea = () => {
 }
 
 const onClickSettingButton = () => {
+    isMatchActive.value = false
     router.push('/setting')
 }
 </script>
@@ -55,10 +58,12 @@ const onClickSettingButton = () => {
         &__user-name {
             font-size: 1.2em;
             color: white;
+            font-weight: bold;
         }
         &__user-setting {
-            width: 6vh;
+            font-size: 5vh;
             margin-left: 10vw;
+            color: white;
             cursor: pointer;
         }
     }
@@ -69,13 +74,14 @@ const onClickSettingButton = () => {
         display: flex;
         cursor: pointer;
         &__image {
-            height: 7vh;
+            font-size: 7vh;
+            color: #d85178;
             margin-left: 3vw;
             margin-right: 1.5vw;
         }
         &__title {
-            font-weight: 500;
-            font-size: 1.2em;
+            font-weight: bold;
+            font-size: 1.1em;
         }
     }
     &__match-area:hover,
@@ -86,7 +92,7 @@ const onClickSettingButton = () => {
     &__message-header {
         text-align: left;
         margin-left: 1vw;
-        font-weight: 500;
+        font-weight: bold;
         font-size: 1.1em;
         color: #d85178;
     }

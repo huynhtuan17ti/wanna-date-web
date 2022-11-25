@@ -51,7 +51,8 @@ const user = computed<User>({
             max-height: 30vh;
         }
         &__text-container {
-            margin-left: 15px;
+            padding-left: 15px;
+            padding-right: 15px;
             text-align: left;
             display: flex;
             line-height: 1.5em;
@@ -61,6 +62,7 @@ const user = computed<User>({
                 font-weight: 600;
             }
             &__user-info {
+                margin-top: 10px;
             }
         }
     }

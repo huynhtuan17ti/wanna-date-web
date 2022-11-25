@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <img class="container__image" src="../assets/user.png" />
+        <span class="material-symbols-outlined container__avatar"> account_circle </span>
         <!-- <el-badge is-dot class="notify-dot" /> -->
         <div class="container__info">
             <p class="container__info__name">{{ userName }}</p>
@@ -24,10 +24,10 @@ const props = defineProps<{
     height: 10vh;
     align-items: center;
     background-color: #eef4f6;
-    &__image {
+    &__avatar {
         border-radius: 50%;
-        width: 6vh;
-        height: 6vh;
+        font-size: 6vh;
+        color: gray;
         margin-left: 1.5vw;
         margin-right: 1vw;
     }
@@ -41,7 +41,7 @@ const props = defineProps<{
             font-size: 1.1em;
             margin-bottom: 3px;
             color: #d85076;
-            font-weight: 550;
+            font-weight: bold;
         }
         &__recent-message {
             margin-top: 0;

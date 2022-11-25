@@ -23,7 +23,12 @@
                     <el-form-item label="Your age">
                         <el-input-number v-model="currentUser.age" :min="16" :max="100" />
                     </el-form-item>
-                    <el-form-item label="A short introduction">
+                    <el-form-item label="Gender">
+                        <el-select v-model="currentUser.is_female" clearable>
+                            <el-option v-for="item in genderOptions" :key="item.key" :label="item.label" :value="item.value" />
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="Short introduction">
                         <el-input v-model="currentUser.short_introduce" />
                     </el-form-item>
                     <el-form-item>
@@ -67,6 +72,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
     return true
 }
 
+// setting buttons
 const onUpdate = () => {
     userStore.update(currentUser.value)
     currentUser.value = Object.assign({}, userStore.user)
@@ -75,6 +81,20 @@ const onUpdate = () => {
 const onReset = () => {
     currentUser.value = Object.assign({}, userStore.user)
 }
+
+// gender selection
+const genderOptions = ref([
+    {
+        key: 0,
+        value: false,
+        label: 'Male',
+    },
+    {
+        key: 1,
+        value: true,
+        label: 'Female',
+    },
+])
 </script>
 
 <style scoped lang="scss">
