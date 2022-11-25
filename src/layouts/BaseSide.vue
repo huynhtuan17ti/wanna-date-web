@@ -3,7 +3,7 @@
         <div class="bar-container__header">
             <img class="bar-container__header__image" src="../assets/avatar.jpg" alt="Avatar" />
             <p class="bar-container__header__user-name">Kkura</p>
-            <el-image class="bar-container__header__user-setting" src="src/assets/setting.png" @click="onClickSettingButton()"></el-image>
+            <img class="bar-container__header__user-setting" src="../assets/setting.png" @click="onClickSettingButton()" />
         </div>
         <div :class="{ 'bar-container__match-area': true, 'bar-container__match-area-active': isMatchActive }" @click="onClickMatchArea()">
             <img class="bar-container__match-area__image" src="../assets/match-cards.png" alt="Match" />
@@ -18,7 +18,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const isMatchActive = ref(false)
+const isMatchActive = ref(true)
 const router = useRouter()
 
 const onClickMatchArea = () => {
