@@ -3,7 +3,7 @@
         <div class="bar-container__header">
             <img class="bar-container__header__image" src="../assets/avatar.jpg" alt="Avatar" />
             <p class="bar-container__header__user-name">Kkura</p>
-            <el-image class="bar-container__header__user-setting" src="../assets/user_setting.png" @click="onClickSettingButton()"></el-image>
+            <el-image class="bar-container__header__user-setting" src="src/assets/setting.png" @click="onClickSettingButton()"></el-image>
         </div>
         <div :class="{ 'bar-container__match-area': true, 'bar-container__match-area-active': isMatchActive }" @click="onClickMatchArea()">
             <img class="bar-container__match-area__image" src="../assets/match-cards.png" alt="Match" />
