@@ -1,10 +1,10 @@
 <template>
     <div class="card-container">
         <div class="card-wrapper">
-            <el-image class="card-wrapper__header-image" :src="user.image_url" fit="cover"></el-image>
+            <el-image class="card-wrapper__header-image" :src="user.avatar_url" fit="cover"></el-image>
             <div class="card-wrapper__text-container">
                 <span class="card-wrapper__text-container__user-header">{{ user.name }}, {{ user.age }}</span>
-                <span class="card-wrapper__text-container__user-info">Lovely cute girl</span>
+                <span class="card-wrapper__text-container__user-info">{{ user.short_introduce }}</span>
             </div>
         </div>
     </div>
@@ -12,15 +12,23 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useSuggestionStore } from '../stores/suggestion'
+import { User } from '~/models/user'
 const props = defineProps<{
-    userId: string
+    modelValue: User
 }>()
 
-const suggestionStore = useSuggestionStore()
-const user = computed(() => suggestionStore.getUserFromId(props.userId))
-console.log(user.value)
-const url = ref('https://i.pinimg.com/736x/6e/a9/85/6ea985f92af67dabd2398b4d084b6f06.jpg')
+const emit = defineEmits(['update:modelValue'])
+
+// -------------- setup for v-model ------------------
+const user = computed<User>({
+    get() {
+        return props.modelValue
+    },
+
+    set(value) {
+        return emit('update:modelValue', value)
+    },
+})
 </script>
 
 <style scoped lang="scss">

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <img class="container__image" src="src/assets/user.png" />
+        <img class="container__image" src="../assets/user.png" />
         <!-- <el-badge is-dot class="notify-dot" /> -->
         <div class="container__info">
             <p class="container__info__name">{{ userName }}</p>

@@ -3,12 +3,12 @@
         <div class="container__setting-area">
             <h2 class="container__setting-area__header">Settings</h2>
             <div class="container__setting-area__setting-option">
-                <el-form :model="form" label-width="auto" size="large" label-position="top">
+                <el-form :model="currentUser" label-width="auto" size="large" label-position="top">
                     <!-- TODO: reimplement avatar upload -->
                     <el-form-item label="Upload header image">
                         <el-upload
                             class="avatar-uploader"
-                            action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+                            action="https://jsonplaceholder.typicode.com/posts/"
                             :show-file-list="false"
                             :on-success="handleAvatarSuccess"
                             :before-upload="beforeAvatarUpload"
@@ -18,47 +18,42 @@
                         </el-upload>
                     </el-form-item>
                     <el-form-item label="Your name">
-                        <el-input v-model="form.name" />
+                        <el-input v-model="currentUser.name" />
                     </el-form-item>
                     <el-form-item label="Your age">
-                        <el-input v-model="form.age" />
+                        <el-input-number v-model="currentUser.age" :min="16" :max="100" />
                     </el-form-item>
                     <el-form-item label="A short introduction">
-                        <el-input v-model="form.short_introduce" />
+                        <el-input v-model="currentUser.short_introduce" />
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="danger" plain>Update</el-button>
-                        <el-button type="info" plain>Reset</el-button>
+                        <el-button type="danger" plain @click="onUpdate()">Update</el-button>
+                        <el-button type="info" plain @click="onReset()">Reset</el-button>
                     </el-form-item>
                 </el-form>
             </div>
         </div>
         <div class="container__user-card">
-            <user-card user-id="us2"></user-card>
+            <user-card v-model="currentUser"></user-card>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import { useUserStore } from '../stores/user'
 import { Plus } from '@element-plus/icons-vue'
+import type { UploadProps, FormInstance } from 'element-plus'
 
-import type { UploadProps } from 'element-plus'
-
-// do not use same name with ref
-const form = reactive({
-    name: '',
-    age: '',
-    short_introduce: '',
-})
+const userStore = useUserStore()
+const currentUser = ref(Object.assign({}, userStore.user))
 
 // upload image
 const imageUrl = ref('')
 
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
     imageUrl.value = URL.createObjectURL(uploadFile.raw!)
-    console.log(imageUrl.value)
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
@@ -70,6 +65,15 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
         return false
     }
     return true
+}
+
+const onUpdate = () => {
+    userStore.update(currentUser.value)
+    currentUser.value = Object.assign({}, userStore.user)
+}
+
+const onReset = () => {
+    currentUser.value = Object.assign({}, userStore.user)
 }
 </script>
 
