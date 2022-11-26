@@ -12,7 +12,7 @@
             <p class="bar-container__match-area__title">Dicover new matches</p>
         </div>
         <p class="bar-container__message-header">Messages</p>
-        <message-tab user-name="Emilia" recent-message="Love you <3"></message-tab>
+        <message-tab user-name="Emilia" recent-message="Love you <3" @click="onClickMessageTab()"></message-tab>
     </div>
 </template>
 
@@ -32,10 +32,16 @@ const onClickSettingButton = () => {
     isMatchActive.value = false
     router.push('/setting')
 }
+
+const onClickMessageTab = () => {
+    isMatchActive.value = false
+    router.push('/chat')
+}
 </script>
 
 <style scoped lang="scss">
 .bar-container {
+    z-index: 100;
     box-sizing: border-box;
     background-color: white;
     border-radius: 0px 15px 15px 0px;

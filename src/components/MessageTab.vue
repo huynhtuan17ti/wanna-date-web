@@ -19,6 +19,7 @@ const props = defineProps<{
 
 <style scoped lang="scss">
 .container {
+    cursor: pointer;
     border-top: 2px solid #d85076;
     display: flex;
     height: 10vh;

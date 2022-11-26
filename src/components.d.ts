@@ -9,7 +9,10 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BaseHeader: typeof import('./layouts/BaseHeader.vue')['default']
     BaseSide: typeof import('./layouts/BaseSide.vue')['default']
+    ChatArea: typeof import('./components/ChatArea.vue')['default']
+    ChatPage: typeof import('./views/ChatPage.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCol: typeof import('element-plus/es')['ElCol']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
@@ -18,6 +21,7 @@ declare module '@vue/runtime-core' {
     ElInput: typeof import('element-plus/es')['ElInput']
     ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
     ElOption: typeof import('element-plus/es')['ElOption']
+    ElRow: typeof import('element-plus/es')['ElRow']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElUpload: typeof import('element-plus/es')['ElUpload']
