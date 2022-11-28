@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <span class="material-symbols-outlined container__avatar"> account_circle </span>
+    <div :class="{ container: true, active: props.active }">
+        <img class="container__avatar" src="../assets/emilia_avatar.jpeg" />
         <!-- <el-badge is-dot class="notify-dot" /> -->
         <div class="container__info">
             <p class="container__info__name">{{ userName }}</p>
@@ -13,11 +13,15 @@
 const props = defineProps<{
     userName: string
     recentMessage: string
+    active: boolean
     // notification: boolean
 }>()
 </script>
 
 <style scoped lang="scss">
+.active {
+    background-color: white !important;
+}
 .container {
     cursor: pointer;
     border-top: 2px solid #d85076;
@@ -27,8 +31,7 @@ const props = defineProps<{
     background-color: #eef4f6;
     &__avatar {
         border-radius: 50%;
-        font-size: 6vh;
-        color: gray;
+        width: 6vh;
         margin-left: 1.5vw;
         margin-right: 1vw;
     }

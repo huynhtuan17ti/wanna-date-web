@@ -2,17 +2,46 @@
     <div class="container">
         <div class="container__input-area">
             <span class="container__input-area__add-icon material-symbols-outlined"> sentiment_satisfied </span>
-            <el-input class="container__input-area__input-message" v-model="input" placeholder="Aa" />
-            <span class="container__input-area__send-icon material-symbols-outlined">send</span>
+            <el-input class="container__input-area__input-message" v-model="input" placeholder="Aa" @keyup.enter="onSend()" />
+            <span class="container__input-area__send-icon material-symbols-outlined" style="cursor: pointer" @click="onSend()">send</span>
         </div>
-        <div class="container__message-area"></div>
+        <!-- Messages area -->
+        <el-scrollbar ref="scrollbarRef" class="container__message-area">
+            <message-box v-for="(item, index) in messageData" :key="index" :user-side="item.side" :message="item.content"></message-box>
+        </el-scrollbar>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue-demi'
+import { ref } from 'vue'
+import { ElScrollbar } from 'element-plus'
+
+const messageData = ref([
+    { content: 'Ca lin chi', side: true },
+    { content: 'Bing Chilling', side: true },
+    { content: 'Shitty', side: false },
+    { content: 'Do you see the sky? Everything kinda bloody', side: true },
+    { content: 'Yeh, I see. Also some cross things.', side: false },
+    { content: 'Fuck everyone around me became some shits of orange.', side: true },
+    { content: 'WDYM?', side: false },
+    { content: 'Wait, wtf, my friends, they turned into orange liquid, smell like blood', side: false },
+    { content: 'Fuck, its the end of evangelion, we re gonna die!', side: false },
+    { content: 'Hello, are u still there?', side: false },
+])
 
 const input = ref('')
+const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>()
+
+const onSend = () => {
+    if (input.value === '') return
+    messageData.value.push({
+        content: input.value,
+        side: true,
+    })
+    input.value = ''
+    // NOTE: temporary fix
+    scrollbarRef.value?.setScrollTop(100000000)
+}
 </script>
 
 <style scoped lang="scss">

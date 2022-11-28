@@ -12,7 +12,8 @@
             <p class="bar-container__match-area__title">Dicover new matches</p>
         </div>
         <p class="bar-container__message-header">Messages</p>
-        <message-tab user-name="Emilia" recent-message="Love you <3" @click="onClickMessageTab()"></message-tab>
+        <message-tab user-name="Emilia" recent-message="Love you <3" :active="onActiveMessageTab" @click="onClickMessageTab()"></message-tab>
+        <message-tab user-name="Emilia" recent-message="Love you <3" :active="false" @click="onClickMessageTab()"></message-tab>
     </div>
 </template>
 
@@ -25,15 +26,19 @@ const router = useRouter()
 
 const onClickMatchArea = () => {
     isMatchActive.value = true
+    onActiveMessageTab.value = false
     router.push('/match')
 }
 
 const onClickSettingButton = () => {
     isMatchActive.value = false
+    onActiveMessageTab.value = false
     router.push('/setting')
 }
 
+const onActiveMessageTab = ref(false)
 const onClickMessageTab = () => {
+    onActiveMessageTab.value = true
     isMatchActive.value = false
     router.push('/chat')
 }
