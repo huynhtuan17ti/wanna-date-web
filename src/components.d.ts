@@ -25,6 +25,7 @@ declare module '@vue/runtime-core' {
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    LoginPage: typeof import('./views/LoginPage.vue')['default']
     MainLayout: typeof import('./layouts/MainLayout.vue')['default']
     MatchPage: typeof import('./views/MatchPage.vue')['default']
     MessageBox: typeof import('./components/MessageBox.vue')['default']

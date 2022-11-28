@@ -63,10 +63,8 @@ const decide = (choice: string) => {
     justify-content: center;
     height: 100vh;
     .vue-tinder {
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin: auto;
+        position: relative;
+        margin-bottom: 20vh;
         height: 75vh;
         width: 22vw;
         :deep(.tinder-card) {

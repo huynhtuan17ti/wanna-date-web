@@ -2,9 +2,7 @@
     <el-container>
         <base-side />
         <el-container class="main-container">
-            <el-scrollbar class="main-container__body">
-                <router-view :key="$route.path" />
-            </el-scrollbar>
+            <router-view class="main-container__body" :key="$route.path" />
         </el-container>
     </el-container>
 </template>
@@ -22,7 +20,8 @@
     .main-container__body {
         flex: 1;
         flex-basis: auto;
-        box-sizing: border-box;
+        overflow: hidden;
+        height: 100vh;
     }
 }
 </style>

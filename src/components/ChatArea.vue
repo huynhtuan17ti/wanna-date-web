@@ -34,6 +34,7 @@ const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>()
 
 const onSend = () => {
     if (input.value === '') return
+    console.log(input.value)
     messageData.value.push({
         content: input.value,
         side: true,
