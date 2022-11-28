@@ -44,3 +44,22 @@ export const userData: User[] = [
 ]
 
 export const currentUserId: string = 'us2'
+
+export const messageTabData = [
+    {
+        name: 'Emilia',
+        recent_message: 'Love u',
+    },
+    {
+        name: 'Rem',
+        recent_message: 'Did you see my Subaru?',
+    },
+    {
+        name: 'Power',
+        recent_message: 'My Meowy, can u find her for me? plzzzzzzzz',
+    },
+    {
+        name: 'Asuna',
+        recent_message: 'Neh, Im ok!',
+    },
+]

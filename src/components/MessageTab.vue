@@ -21,6 +21,7 @@ const props = defineProps<{
 <style scoped lang="scss">
 .active {
     background-color: white !important;
+    background-image: linear-gradient(273.03deg, #d95855 0%, rgba(237, 176, 175, 0.473427) 10%, rgba(255, 255, 255, 0) 80%);
 }
 .container {
     cursor: pointer;

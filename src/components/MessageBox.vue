@@ -9,19 +9,20 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
+import { imageData } from '../constants/image'
 const props = defineProps<{
     userSide: Boolean
     message: String
 }>()
 
 const side = computed(() => props.userSide)
-const src_avatar = computed(() => (props.userSide ? 'src/assets/avatar.jpg' : 'src/assets/emilia_avatar.jpeg'))
+const src_avatar = computed(() => (props.userSide ? imageData.avatar : imageData.emilia_avatar))
 </script>
 
 <style scoped lang="scss">
 .container {
     flex-direction: row !important;
-    margin-left: 10px;
+    margin-left: 15px;
     align-items: center;
 
     .user_avatar {
@@ -32,7 +33,7 @@ const src_avatar = computed(() => (props.userSide ? 'src/assets/avatar.jpg' : 's
 
 .container-right-side {
     flex-direction: row-reverse !important;
-    margin-right: 10px;
+    margin-right: 15px;
 }
 
 .message_container {

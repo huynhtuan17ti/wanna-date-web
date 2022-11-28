@@ -12,33 +12,51 @@
             <p class="bar-container__match-area__title">Dicover new matches</p>
         </div>
         <p class="bar-container__message-header">Messages</p>
-        <message-tab user-name="Emilia" recent-message="Love you <3" :active="onActiveMessageTab" @click="onClickMessageTab()"></message-tab>
-        <message-tab user-name="Emilia" recent-message="Love you <3" :active="false" @click="onClickMessageTab()"></message-tab>
+        <div :key="triggerKey">
+            <message-tab
+                v-for="(item, index) in data"
+                :key="index"
+                :user-name="item.name"
+                :recent-message="item.recent_message"
+                :active="item.active"
+                @click="onClickMessageTab(index)"
+            ></message-tab>
+        </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { messageTabData } from '../data/fake_data'
+
+const triggerKey = ref(0)
+const data = computed(() => messageTabData.map((item, index) => ({ ...item, active: false })))
+let activeIndex = -1
 
 const isMatchActive = ref(true)
 const router = useRouter()
 
 const onClickMatchArea = () => {
     isMatchActive.value = true
-    onActiveMessageTab.value = false
+    data.value[activeIndex].active = false
+    triggerKey.value += 1
     router.push('/match')
 }
 
 const onClickSettingButton = () => {
     isMatchActive.value = false
-    onActiveMessageTab.value = false
+    data.value[activeIndex].active = false
+    triggerKey.value += 1
     router.push('/setting')
 }
 
-const onActiveMessageTab = ref(false)
-const onClickMessageTab = () => {
-    onActiveMessageTab.value = true
+const onClickMessageTab = (index: number) => {
+    console.log(index, activeIndex)
+    if (activeIndex >= 0) data.value[activeIndex].active = false
+    activeIndex = index
+    data.value[activeIndex].active = true
+    triggerKey.value += 1
     isMatchActive.value = false
     router.push('/chat')
 }
