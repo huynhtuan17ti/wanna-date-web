@@ -7,58 +7,39 @@
             <!-- <img class="bar-container__header__user-setting" src="../assets/setting.png" @click="onClickSettingButton()" /> -->
         </div>
         <div :class="{ 'bar-container__match-area': true, 'bar-container__match-area-active': isMatchActive }" @click="onClickMatchArea()">
-            <span class="material-symbols-sharp bar-container__match-area__image">view_carousel</span>
+            <img class="bar-container__match-area__image" :src="imageData.cards" />
+            <!-- <span class="material-symbols-sharp bar-container__match-area__image">view_carousel</span> -->
             <!-- <img class="bar-container__match-area__image" src="../assets/match-cards.png" alt="Match" /> -->
             <p class="bar-container__match-area__title">Dicover new matches</p>
         </div>
-        <p class="bar-container__message-header">Messages</p>
-        <div :key="triggerKey">
-            <message-tab
-                v-for="(item, index) in data"
-                :key="index"
-                :user-name="item.name"
-                :recent-message="item.recent_message"
-                :active="item.active"
-                @click="onClickMessageTab(index)"
-            ></message-tab>
-        </div>
+        <el-tabs class="bar-container__tabs-header" type="card">
+            <el-tab-pane label="Messages">
+                <chat-list />
+            </el-tab-pane>
+            <el-tab-pane label="Liked">
+                <liked-list />
+            </el-tab-pane>
+        </el-tabs>
+        <!-- <p class="bar-container__message-header">Messages</p> -->
     </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { messageTabData } from '../data/fake_data'
-
-const triggerKey = ref(0)
-const data = computed(() => messageTabData.map((item, index) => ({ ...item, active: false })))
-let activeIndex = -1
+import { imageData } from '../constants/image'
 
 const isMatchActive = ref(true)
 const router = useRouter()
 
 const onClickMatchArea = () => {
     isMatchActive.value = true
-    data.value[activeIndex].active = false
-    triggerKey.value += 1
     router.push('/match')
 }
 
 const onClickSettingButton = () => {
     isMatchActive.value = false
-    data.value[activeIndex].active = false
-    triggerKey.value += 1
     router.push('/setting')
-}
-
-const onClickMessageTab = (index: number) => {
-    console.log(index, activeIndex)
-    if (activeIndex >= 0) data.value[activeIndex].active = false
-    activeIndex = index
-    data.value[activeIndex].active = true
-    triggerKey.value += 1
-    isMatchActive.value = false
-    router.push('/chat')
 }
 </script>
 
@@ -103,6 +84,7 @@ const onClickMessageTab = (index: number) => {
         display: flex;
         cursor: pointer;
         &__image {
+            width: 3.5vw;
             font-size: 7vh;
             color: #d85178;
             margin-left: 3vw;
@@ -118,12 +100,7 @@ const onClickMessageTab = (index: number) => {
         background-color: white;
         background-image: linear-gradient(273.03deg, #d95855 0%, rgba(237, 176, 175, 0.473427) 24.81%, rgba(255, 255, 255, 0) 99.63%);
     }
-    &__message-header {
-        text-align: left;
-        margin-left: 1vw;
-        font-weight: bold;
-        font-size: 1.1em;
-        color: #d85178;
-    }
 }
 </style>
+
+<style lang="scss"></style>

@@ -20,6 +20,7 @@
             <img src="../assets/help.png" @click="decide('help')" />
         </div>
     </div>
+    <img class="notification" :src="imageData.notification" />
 </template>
 
 <script lang="ts" setup>
@@ -27,6 +28,7 @@ import VueTinder from 'vue-tinder'
 import { useSuggestionStore } from '../stores/suggestion'
 import { computed, onMounted, ref } from 'vue'
 import { User } from '~/models/user'
+import { imageData } from '../constants/image'
 
 const queue = ref<{ key: number; user: User | undefined }[]>([])
 const history = ref<{ key: number; user: User | undefined }[]>([])
@@ -88,5 +90,11 @@ const decide = (choice: string) => {
             -webkit-tap-highlight-color: transparent;
         }
     }
+}
+.notification {
+    position: absolute;
+    width: 3vw;
+    top: 1vh;
+    right: 1vw;
 }
 </style>
