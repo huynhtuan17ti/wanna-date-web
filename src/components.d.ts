@@ -24,7 +24,6 @@ declare module '@vue/runtime-core' {
     ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElRow: typeof import('element-plus/es')['ElRow']
-    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
@@ -38,6 +37,8 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SettingPage: typeof import('./views/SettingPage.vue')['default']
+    SigninForm: typeof import('./components/SigninForm.vue')['default']
+    SignupForm: typeof import('./components/SignupForm.vue')['default']
     UserCard: typeof import('./components/UserCard.vue')['default']
   }
 }
