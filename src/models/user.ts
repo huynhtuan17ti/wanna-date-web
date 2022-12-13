@@ -4,5 +4,6 @@ export interface User {
     name: string
     age: number
     is_female: boolean
+    header_url: string
     short_introduce: string
 }

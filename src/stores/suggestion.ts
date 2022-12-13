@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
 import { User } from '../models/user'
-import { userData } from '../data/fake_data'
+import { sampleUserData } from '../data/fake_data'
 
 export const useSuggestionStore = defineStore('suggestion', () => {
-    const suggestList: User[] = userData
+    const suggestList: User[] = sampleUserData
 
     const ids = computed(() => suggestList.map(({ id }) => id))
 

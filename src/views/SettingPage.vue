@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="container__user-card">
-            <user-card v-model="currentUser"></user-card>
+            <user-card v-model="currentUser" card-type="normal"></user-card>
         </div>
     </div>
 </template>

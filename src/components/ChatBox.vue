@@ -1,6 +1,6 @@
 <template>
     <div :class="{ container: true, active: props.active }">
-        <img class="container__avatar" src="../assets/emilia_avatar.jpeg" />
+        <img class="container__avatar" :src="avatarUrl" />
         <!-- <el-badge is-dot class="notify-dot" /> -->
         <div class="container__info">
             <p class="container__info__name">{{ userName }}</p>
@@ -13,6 +13,7 @@
 import { ref } from 'vue'
 const props = defineProps<{
     userName: string
+    avatarUrl: string
     recentMessage: string
     active: boolean
     // notification: boolean
@@ -34,8 +35,10 @@ const props = defineProps<{
     &__avatar {
         border-radius: 50%;
         width: 6vh;
+        height: 6vh;
         margin-left: 1.5vw;
         margin-right: 1vw;
+        border: 1px solid #d85076;
     }
     &__info {
         height: 40%;

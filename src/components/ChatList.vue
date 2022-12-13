@@ -1,10 +1,11 @@
 <template>
-    <div :key="triggerKey">
+    <div>
         <chat-box
             v-for="(item, index) in data"
             :key="index"
-            :user-name="item.name"
-            :recent-message="item.recent_message"
+            :user-name="item.user.name"
+            :avatar-url="item.user.avatar_url"
+            :recent-message="getRecentMessage(item.message)"
             :active="item.active"
             @click="onClickChatBox(index)"
         ></chat-box>
@@ -12,20 +13,21 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, reactive, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { messageTabData } from '../data/fake_data'
+import { useMessageStore } from '../stores/message'
 
 const router = useRouter()
-const triggerKey = ref(0)
-const data = computed(() => messageTabData.map((item, index) => ({ ...item, active: false })))
+const messageStore = useMessageStore()
+const data = reactive(messageStore.userMessageData)
 
-let activeIndex = -1
+const getRecentMessage = (message) => {
+    if (message.length == 0) return ''
+    return message[message.length - 1].content
+}
+
 const onClickChatBox = (index: number) => {
-    console.log(index, activeIndex)
-    if (activeIndex >= 0) data.value[activeIndex].active = false
-    activeIndex = index
-    data.value[activeIndex].active = true
-    triggerKey.value += 1
+    messageStore.setActive(index)
+    router.push('/chat')
 }
 </script>

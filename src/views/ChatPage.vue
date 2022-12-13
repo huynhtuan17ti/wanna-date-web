@@ -7,7 +7,7 @@
         </el-col>
         <el-col :span="8">
             <div class="setting-area">
-                <el-image class="setting-area__user-image" :src="srcImage"></el-image>
+                <el-image class="setting-area__user-image" :src="chatUser.avatar_url"></el-image>
                 <p>You and Emilia liked each other a month ago</p>
                 <div class="setting-area__remove">
                     <el-button type="danger">Block</el-button>
@@ -19,9 +19,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue-demi'
+import { computed } from 'vue'
 import { imageData } from '../constants/image'
-const srcImage = computed(() => imageData.emilia_avatar)
+import { useMessageStore } from '../stores/message'
+
+const messageStore = useMessageStore()
+const chatUser = computed(() => messageStore.activeUser)
 </script>
 
 <style scoped lang="scss">
@@ -35,6 +38,8 @@ const srcImage = computed(() => imageData.emilia_avatar)
     height: 100vh;
     padding: 5vh 1vw 1vw 0;
     &__user-image {
+        width: 10vw;
+        height: 10vw;
         border-radius: 50%;
         border: 2px solid #d85076;
     }

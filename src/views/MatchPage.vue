@@ -2,7 +2,7 @@
     <div class="container">
         <vue-tinder ref="tinder" key-name="key" v-model:queue="queue" :max="3" :offset-y="10" allow-down @submit="onSubmit">
             <template #default="{ data }">
-                <user-card v-model="data.user"></user-card>
+                <user-card v-model="data.user" card-type="normal"></user-card>
             </template>
             <template #like></template>
             <template #nope></template>

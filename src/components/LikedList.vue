@@ -1,25 +1,26 @@
 <template>
-    <div :key="triggerKey">
-        <liked-box v-for="(item, index) in data" :key="index" :user-name="item.name" :age="19" :active="item.active" @click="onClickChatBox(index)"></liked-box>
-    </div>
+    <liked-box
+        v-for="(item, index) in likedUsers"
+        :key="index"
+        :user-name="item.name"
+        :age="item.age"
+        :avatar-url="item.avatar_url"
+        :active="item.active"
+        @click="onClickChatBox(index)"
+    ></liked-box>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { messageTabData } from '../data/fake_data'
+import { useManageStore } from '../stores/manage'
 
 const router = useRouter()
-const triggerKey = ref(0)
-const data = computed(() => messageTabData.map((item, index) => ({ ...item, active: false })))
+const manageStore = useManageStore()
+const likedUsers = reactive(manageStore.likedUserData)
 
-let activeIndex = -1
 const onClickChatBox = (index: number) => {
-    console.log(index, activeIndex)
-    if (activeIndex >= 0) data.value[activeIndex].active = false
-    activeIndex = index
-    data.value[activeIndex].active = true
-    triggerKey.value += 1
-    router.push('/chat')
+    manageStore.setActive(index)
+    router.push('/liked')
 }
 </script>

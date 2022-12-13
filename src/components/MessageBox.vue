@@ -1,6 +1,6 @@
 <template>
     <div :class="{ container: true, 'container-right-side': side }">
-        <img class="user_avatar" :src="src_avatar" alt="Avatar" />
+        <img class="user_avatar" :src="user_avatar" alt="Avatar" />
         <div :class="{ message_container: true, 'left-side': !side, 'right-side': side }">
             <span class="container__message">{{ props.message }}</span>
         </div>
@@ -13,10 +13,11 @@ import { imageData } from '../constants/image'
 const props = defineProps<{
     userSide: Boolean
     message: String
+    avatarUrl: String
 }>()
 
 const side = computed(() => props.userSide)
-const src_avatar = computed(() => (props.userSide ? imageData.avatar : imageData.emilia_avatar))
+const user_avatar = computed(() => (props.userSide ? imageData.avatar : props.avatarUrl))
 </script>
 
 <style scoped lang="scss">
