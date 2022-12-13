@@ -13,6 +13,7 @@
 .container {
     position: relative;
     height: 100vh;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     background-image: url('../assets/bgr.png');
