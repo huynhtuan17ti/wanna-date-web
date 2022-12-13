@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue-demi'
+import { computed } from 'vue'
 import { imageData } from '../constants/image'
 const srcImage = computed(() => imageData.emilia_avatar)
 </script>
