@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <user-card v-if="user" v-model="user" card-type="liked"></user-card>
-        <div class="btns">
+        <div v-if="user" class="btns">
             <img src="../assets/nope.png" @click="decide('nope')" />
             <img src="../assets/like.png" @click="decide('like')" />
         </div>

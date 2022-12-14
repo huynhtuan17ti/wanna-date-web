@@ -1,8 +1,21 @@
 import { User } from '../models/user'
 
-export const sampleUserId: string = 'us2'
+export const sampleUserId: string = 'us0'
 
 export const sampleUserData: User[] = [
+    {
+        id: 'us0',
+        avatar_url: 'https://i.pinimg.com/736x/ac/0c/ea/ac0cea71f3395ba8715bff039059d00d.jpg',
+        name: 'Gilgamesh',
+        is_female: false,
+        age: 22,
+        header_url: 'https://i.pinimg.com/originals/cd/90/11/cd9011598bb15c9d71c4bf76650cccc8.jpg',
+        short_introduce: 'Find a cute girl UwU',
+        work: 'A fucking god',
+        interest: 'Weapons',
+        location: 'Japan',
+        premium: false,
+    },
     {
         id: 'us2',
         avatar_url: 'https://i.pinimg.com/736x/c0/bc/a6/c0bca6621171825df690ae62d3f5f693.jpg',
@@ -11,6 +24,10 @@ export const sampleUserData: User[] = [
         age: 22,
         header_url: 'https://i.pinimg.com/736x/6e/a9/85/6ea985f92af67dabd2398b4d084b6f06.jpg',
         short_introduce: 'A half-elf cute girl',
+        work: 'A half-witch',
+        interest: 'Eating ice cream',
+        location: 'Japan',
+        premium: false,
     },
     {
         id: 'us3',
@@ -20,6 +37,10 @@ export const sampleUserData: User[] = [
         age: 18,
         header_url: 'https://i.pinimg.com/originals/d2/7e/04/d27e049687ce1b63d0eb227841fad292.jpg',
         short_introduce: 'Quite shy ><',
+        work: 'An Auto Memory Doll',
+        interest: 'Reading and writing letters',
+        location: 'Japan',
+        premium: false,
     },
     {
         id: 'us4',
@@ -29,6 +50,10 @@ export const sampleUserData: User[] = [
         age: 17,
         header_url: 'https://i.pinimg.com/736x/37/51/ac/3751ac130689f6381b9ff43bc75fae46.jpg',
         short_introduce: 'I can do everything for my love',
+        work: 'A cute maid',
+        interest: 'Seeing my crush',
+        location: 'Japan',
+        premium: false,
     },
     {
         id: 'us5',
@@ -38,6 +63,10 @@ export const sampleUserData: User[] = [
         age: 19,
         header_url: 'https://i.pinimg.com/originals/6d/ba/c3/6dbac337e52dcc16bb70f72331a2c43e.jpg',
         short_introduce: 'Im ok if my boy friend hang out with several other girls',
+        work: 'A student',
+        interest: 'Hobby of bathing',
+        location: 'Japan',
+        premium: false,
     },
     {
         id: 'us6',
@@ -47,6 +76,10 @@ export const sampleUserData: User[] = [
         age: 20,
         header_url: 'https://i.pinimg.com/originals/27/7a/db/277adb0609808b82b3f599e58d3bd19c.jpg',
         short_introduce: 'Have you seen my Meowy',
+        work: 'A demon hunter',
+        interest: 'Playing with my cat',
+        location: 'Japan',
+        premium: false,
     },
 ]
 
@@ -65,10 +98,6 @@ const sampleMessageData = [
 
 export const sampleUserMessageData = [
     {
-        user: sampleUserData[0],
-        message: [...sampleMessageData],
-    },
-    {
         user: sampleUserData[1],
         message: [...sampleMessageData],
     },
@@ -76,6 +105,10 @@ export const sampleUserMessageData = [
         user: sampleUserData[2],
         message: [...sampleMessageData],
     },
+    {
+        user: sampleUserData[3],
+        message: [...sampleMessageData],
+    },
 ]
 
-export const sampleLikedUserData = [sampleUserData[3], sampleUserData[4]]
+export const sampleLikedUserData = [sampleUserData[4], sampleUserData[5]]

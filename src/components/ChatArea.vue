@@ -12,7 +12,7 @@
                 :key="index"
                 :user-side="item.side"
                 :message="item.content"
-                :avatar-url="chatUser.avatar_url"
+                :avatar-url="getAvatar(item.side)"
             ></message-box>
         </el-scrollbar>
     </div>
@@ -22,6 +22,11 @@
 import { computed, ref, watch } from 'vue'
 import { ElScrollbar } from 'element-plus'
 import { useMessageStore } from '../stores/message'
+import { useUserStore } from '../stores/user'
+
+// user
+const userStore = useUserStore()
+const user = computed(() => userStore.user)
 
 const input = ref('')
 const messageStore = useMessageStore()
@@ -29,6 +34,11 @@ const messageStore = useMessageStore()
 const messageData = computed(() => messageStore.activeMessage)
 const chatUser = computed(() => messageStore.activeUser)
 const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>()
+
+// avatar handle
+const getAvatar = (user_side: boolean) => {
+    return user_side ? user.value.avatar_url : chatUser.value?.avatar_url
+}
 
 const onSend = () => {
     if (input.value === '' || messageData.value === undefined) return

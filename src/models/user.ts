@@ -6,4 +6,8 @@ export interface User {
     is_female: boolean
     header_url: string
     short_introduce: string
+    work: string
+    interest: string
+    location: string
+    premium: boolean
 }

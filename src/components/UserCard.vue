@@ -4,7 +4,19 @@
             <el-image class="card-wrapper__header-image" :src="user.header_url" fit="cover"></el-image>
             <div class="card-wrapper__text-container">
                 <span class="card-wrapper__text-container__user-header">{{ user.name }}, {{ user.age }}</span>
-                <span class="card-wrapper__text-container__user-info">{{ user.short_introduce }}</span>
+                <span class="card-wrapper__text-container__user-introduce">{{ user.short_introduce }}</span>
+                <div class="card-wrapper__text-container__user-info">
+                    <span class="material-symbols-outlined" style="color: #2f80e8"> work </span>
+                    <span style="margin-left: 5px">{{ user.work }}</span>
+                </div>
+                <div class="card-wrapper__text-container__user-info">
+                    <span class="material-symbols-outlined" style="color: #2f80e8"> interests </span>
+                    <span style="margin-left: 5px">{{ user.interest }}</span>
+                </div>
+                <div class="card-wrapper__text-container__user-info">
+                    <span class="material-symbols-outlined" style="color: #2f80e8"> home_pin </span>
+                    <span style="margin-left: 5px">{{ user.location }}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -80,8 +92,12 @@ const user = computed<User>({
                 font-size: 1.3em;
                 font-weight: 600;
             }
+            &__user-introduce {
+                margin-top: 10px;
+            }
             &__user-info {
                 margin-top: 10px;
+                display: flex;
             }
         }
     }
