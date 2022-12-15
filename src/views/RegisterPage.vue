@@ -1,8 +1,10 @@
 <template>
     <el-row class="container">
-        <div>
-            <signin-form></signin-form>
-        </div>
+        <el-scrollbar>
+            <div>
+                <signup-form></signup-form>
+            </div>
+        </el-scrollbar>
     </el-row>
 </template>
 

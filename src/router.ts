@@ -6,6 +6,10 @@ const routes: RouteRecordRaw[] = [
         component: () => import('./views/LoginPage.vue'),
     },
     {
+        path: '/register',
+        component: () => import('./views/RegisterPage.vue'),
+    },
+    {
         path: '/',
         redirect: '/match',
         component: () => import('./layouts/MainLayout.vue'),

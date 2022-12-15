@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="handleSubmit">
+    <form>
         <h2 class="welcome">Welcome to Wanna Date</h2>
         <label>Email:</label>
         <input type="email" required v-model="email" />
@@ -7,8 +7,11 @@
         <label>Password:</label>
         <input type="password" required v-model="password" />
 
-        <div class="submit">
+        <div class="submit" @submit.prevent="handleSubmit">
             <button>Login</button>
+        </div>
+        <div @click="onClickRegisterRouting()">
+            <button>Register</button>
         </div>
     </form>
 </template>
@@ -24,6 +27,9 @@ export default {
     methods: {
         handleSubmit() {
             console.log(this.email, this.password)
+        },
+        onClickRegisterRouting() {
+            this.$router.push('/register')
         },
     },
 }
@@ -55,14 +61,21 @@ input {
     border: none;
     border-bottom: 1px solid #ddd;
     color: #555;
+    margin-bottom: 30px;
 }
 button {
-    background: #ff724c;
-    border: 0;
+    background: #ffffff;
+    border-width: 2px;
+    border-color: #ff724c;
+    border-style: solid;
+    box-shadow: none;
+    width: 100%;
     padding: 10px 20px;
-    margin-top: 20px;
-    color: white;
-    border-radius: 20px;
+    margin-top: 10px;
+    color: #ff724c;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 10px;
 }
 .welcome {
     text-align: center;
