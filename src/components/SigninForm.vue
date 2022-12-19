@@ -5,7 +5,7 @@
                 <h2 class="form__header">Welcome to Wanna Date</h2>
             </el-form-item>
             <el-form-item label="Email">
-                <el-input v-model="formReact.username" type="email" />
+                <el-input v-model="formReact.email" type="email" />
             </el-form-item>
             <el-form-item label="Password">
                 <el-input v-model="formReact.password" type="password" />
@@ -34,7 +34,7 @@ const onSubmit = () => {
 }
 
 const formReact = reactive({
-    username: '',
+    email: '',
     password: '',
 })
 </script>
