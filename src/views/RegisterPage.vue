@@ -1,9 +1,7 @@
 <template>
     <el-row class="container">
         <el-scrollbar>
-            <div>
-                <signup-form></signup-form>
-            </div>
+            <signup-form></signup-form>
         </el-scrollbar>
     </el-row>
 </template>

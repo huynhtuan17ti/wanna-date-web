@@ -1,8 +1,6 @@
 <template>
-    <el-row class="container">
-        <div>
-            <signin-form></signin-form>
-        </div>
+    <el-row class="container" justify="center">
+        <signin-form></signin-form>
     </el-row>
 </template>
 
@@ -10,11 +8,8 @@
 
 <style scoped lang="scss">
 .container {
-    position: relative;
     height: 100vh;
     max-width: 100%;
-    display: flex;
-    flex-direction: column;
     background-image: url('../assets/bgr.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;

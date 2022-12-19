@@ -1,99 +1,82 @@
-// TODO: Lam Nguyen Hoang
 <template>
-    <form>
-        <label>Email:</label>
-        <input type="email" required v-model="email" />
-
-        <label>Password:</label>
-        <input type="password" required v-model="password" />
-
-        <label>Confirm Password:</label>
-        <input type="password" required v-model="confirmPassword" />
-
-        <label>Full Name:</label>
-        <input type="text" required v-model="fullName" />
-
-        <label for="birthday">Birthday:</label>
-        <input type="date" id="birthday" name="birthday" />
-
-        <label>Gender:</label>
-        <select v-model="gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-        </select>
-
-        <label>Sexual Orientation:</label>
-        <select v-model="gender">
-            <option value="straigt">Straigt</option>
-            <option value="gay">Gay</option>
-            <option value="lesbian">Lesbian</option>
-            <option value="bisexual">Bisexual</option>
-        </select>
-
-        <div class="submit" @submit.prevent="handleSubmit">
-            <button>Register</button>
-        </div>
-    </form>
+    <div class="form">
+        <el-form label-position="top" label-width="100px" :model="regisFormReact">
+            <el-form-item label="Full name">
+                <el-input v-model="regisFormReact.fullName" />
+            </el-form-item>
+            <el-form-item label="Email">
+                <el-input v-model="regisFormReact.email" type="email" />
+            </el-form-item>
+            <el-form-item label="Password">
+                <el-input v-model="regisFormReact.password" type="password"></el-input>
+            </el-form-item>
+            <el-form-item label="Confirm Password">
+                <el-input v-model="regisFormReact.confirmPassword" type="password"></el-input>
+            </el-form-item>
+            <el-form-item label="Date of birth">
+                <el-date-picker v-model="regisFormReact.dateOfBirth" type="date" placeholder="Pick a date" style="width: 100%" />
+            </el-form-item>
+            <el-form-item label="Gender">
+                <el-select v-model="regisFormReact.gender" placeholder="please select your gender">
+                    <el-option label="Male" value="male" />
+                    <el-option label="Female" value="female" />
+                    <el-option label="Other" value="other" />
+                </el-select>
+            </el-form-item>
+            <el-form-item label="Sexual Orientation">
+                <el-select v-model="regisFormReact.sexOrientation" placeholder="please select your gender">
+                    <el-option label="Straigt" value="straigt" />
+                    <el-option label="Gay" value="gay" />
+                    <el-option label="Lesbian" value="lesbian" />
+                    <el-option label="Bisexual" value="bisexual" />
+                </el-select>
+            </el-form-item>
+            <el-form-item>
+                <el-button class="form__btn" @click="onSubmitRegis">Register</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            email: '',
-            password: '',
-            gender: '',
-        }
-    },
-    methods: {
-        handleSubmit() {
-            console.log(this.email, this.password)
-        },
-    },
+<script lang="ts" setup>
+import { reactive } from 'vue-demi'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const regisFormReact = reactive({
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    dateOfBirth: '',
+    gender: '',
+    sexOrientation: '',
+})
+const onSubmitRegis = () => {
+    router.push('\match')
 }
 </script>
-
-<style>
-form {
-    max-width: 420px;
-    margin: 30px auto;
+<style scoped lang="scss">
+.form {
+    margin: 40px auto 40px;
+    width: 30%;
+    max-height: 100vh;
     background: white;
     text-align: left;
     padding: 40px;
     border-radius: 10px;
-}
-label {
-    color: #aaa;
-    display: inline-block;
-    margin: 20px 0 15px;
-    font-size: 0.6em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: bold;
-}
-input,
-select {
-    display: block;
-    padding: 10px 6px;
-    width: 100%;
-    box-sizing: border-box;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    color: #555;
-}
-button {
-    background: #ffffff;
-    border-width: 2px;
-    border-color: #ff724c;
-    border-style: solid;
-    box-shadow: none;
-    width: 100%;
-    padding: 10px 20px;
-    margin-top: 50px;
-    color: #ff724c;
-    font-size: 1em;
-    font-weight: bold;
-    border-radius: 10px;
+    &__btn {
+        background: #ffffff;
+        border-width: 1px;
+        border-color: gray;
+        border-style: solid;
+        box-shadow: none;
+        width: 100%;
+        height: 35px;
+        padding: 10px 20px;
+        color: #ff724c;
+        font-size: 1em;
+        font-weight: bold;
+        border-radius: 5px;
+    }
 }
 </style>
