@@ -1,9 +1,11 @@
 <template>
     <div class="bar-container">
         <div class="bar-container__header">
-            <img class="bar-container__header__image" src="../assets/avatar.jpg" alt="Avatar" />
-            <p class="bar-container__header__user-name">Kkura</p>
-            <span class="material-symbols-rounded bar-container__header__user-setting" @click="onClickSettingButton()">manage_accounts</span>
+            <img class="bar-container__header__image" :src="user.avatar_url" alt="Avatar" />
+            <p class="bar-container__header__user-name">{{ user.name }}</p>
+            <span class="material-symbols-rounded bar-container__header__user-setting" @click="onClickSettingButton()"
+                >manage_accounts</span
+            >
             <!-- <img class="bar-container__header__user-setting" src="../assets/setting.png" @click="onClickSettingButton()" /> -->
         </div>
         <div :class="{ 'bar-container__match-area': true, 'bar-container__match-area-active': isMatchActive }" @click="onClickMatchArea()">
@@ -27,10 +29,13 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '../stores/user'
 import { imageData } from '../constants/image'
 
 const isMatchActive = ref(true)
 const router = useRouter()
+const userStore = useUserStore()
+const user = computed(() => userStore.user)
 
 const onClickMatchArea = () => {
     isMatchActive.value = true
@@ -71,8 +76,9 @@ const onClickSettingButton = () => {
             font-weight: bold;
         }
         &__user-setting {
+            position: absolute;
             font-size: 5vh;
-            margin-left: 10vw;
+            left: 19vw;
             color: white;
             cursor: pointer;
         }

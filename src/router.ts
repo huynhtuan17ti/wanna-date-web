@@ -26,6 +26,10 @@ const routes: RouteRecordRaw[] = [
                 path: 'chat',
                 component: () => import('./views/ChatPage.vue'),
             },
+            {
+                path: 'liked',
+                component: () => import('./views/LikedPage.vue'),
+            },
         ],
     },
 ]

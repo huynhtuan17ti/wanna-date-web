@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { User } from '../models/user'
-import { currentUserId, userData } from '../data/fake_data'
+import { sampleUserId, sampleUserData } from '../data/fake_data'
 
 export const useUserStore = defineStore('user', () => {
-    const userIdx: number | undefined = userData.findIndex((obj) => obj.id === currentUserId)
-    const user = ref(userData[userIdx])
+    const userIdx: number | undefined = sampleUserData.findIndex((obj) => obj.id === sampleUserId)
+    const user = ref(sampleUserData[userIdx])
 
     function update(user_info: User) {
         if (userIdx === undefined) return

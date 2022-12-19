@@ -7,40 +7,44 @@
         </div>
         <!-- Messages area -->
         <el-scrollbar ref="scrollbarRef" class="container__message-area">
-            <message-box v-for="(item, index) in messageData" :key="index" :user-side="item.side" :message="item.content"></message-box>
+            <message-box
+                v-for="(item, index) in messageData"
+                :key="index"
+                :user-side="item.side"
+                :message="item.content"
+                :avatar-url="getAvatar(item.side)"
+            ></message-box>
         </el-scrollbar>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { ElScrollbar } from 'element-plus'
+import { useMessageStore } from '../stores/message'
+import { useUserStore } from '../stores/user'
 
-const messageData = ref([
-    { content: 'Ca lin chi', side: true },
-    { content: 'Bing Chilling', side: true },
-    { content: 'Shitty', side: false },
-    { content: 'Do you see the sky? Everything kinda bloody', side: true },
-    { content: 'Yeh, I see. Also some cross things.', side: false },
-    { content: 'Fuck everyone around me became some shits of orange.', side: true },
-    { content: 'WDYM?', side: false },
-    { content: 'Wait, wtf, my friends, they turned into orange liquid, smell like blood', side: false },
-    { content: 'Fuck, its the end of evangelion, we re gonna die!', side: false },
-    { content: 'Hello, are u still there?', side: false },
-])
+// user
+const userStore = useUserStore()
+const user = computed(() => userStore.user)
 
 const input = ref('')
+const messageStore = useMessageStore()
+// TODO: fix this
+const messageData = computed(() => messageStore.activeMessage)
+const chatUser = computed(() => messageStore.activeUser)
 const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>()
 
+// avatar handle
+const getAvatar = (user_side: boolean) => {
+    return user_side ? user.value.avatar_url : chatUser.value?.avatar_url
+}
+
 const onSend = () => {
-    if (input.value === '') return
-    console.log(input.value)
-    messageData.value.push({
-        content: input.value,
-        side: true,
-    })
+    if (input.value === '' || messageData.value === undefined) return
+    messageStore.appendMessage(input.value, true)
     input.value = ''
-    // NOTE: temporary fix
+    // TODO: temporary fix
     scrollbarRef.value?.setScrollTop(100000000)
 }
 </script>
