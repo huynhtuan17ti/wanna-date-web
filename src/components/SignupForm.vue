@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue-demi'
+import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 const regisFormReact = reactive({
@@ -57,8 +57,8 @@ const onSubmitRegis = () => {
 </script>
 <style scoped lang="scss">
 .form {
-    margin: 40px auto 40px;
-    width: 30%;
+    margin: 10vh auto;
+    width: 25vw;
     max-height: 100vh;
     background: white;
     text-align: left;

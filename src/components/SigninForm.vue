@@ -41,8 +41,10 @@ const formReact = reactive({
 
 <style scoped lang="scss">
 .form {
-    margin: 40px 10% 400px;
-    width: 30%;
+    margin: auto;
+    margin-top: 10vh;
+    width: 25vw;
+    height: 40vh;
     max-height: 100vh;
     background: white;
     text-align: left;
