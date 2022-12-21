@@ -30,20 +30,30 @@
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user'
+import { useManageStore } from '../stores/manage'
+import { useMessageStore } from '../stores/message'
 import { imageData } from '../constants/image'
 
 const isMatchActive = ref(true)
 const router = useRouter()
+
 const userStore = useUserStore()
+const manageStore = useManageStore()
+const messageStore = useMessageStore()
+
 const user = computed(() => userStore.user)
 
 const onClickMatchArea = () => {
     isMatchActive.value = true
+    manageStore.setActive(-1)
+    messageStore.setActive(-1)
     router.push('/match')
 }
 
 const onClickSettingButton = () => {
     isMatchActive.value = false
+    manageStore.setActive(-1)
+    messageStore.setActive(-1)
     router.push('/setting')
 }
 </script>
@@ -70,8 +80,13 @@ const onClickSettingButton = () => {
             margin-left: 1.5vw;
             margin-right: 1vw;
         }
+        @media only screen and (max-width: 800px) {
+            &__user-name {
+                font-size: 0.8em !important;
+            }
+        }
         &__user-name {
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: white;
             font-weight: bold;
         }
@@ -96,9 +111,14 @@ const onClickSettingButton = () => {
             margin-left: 3vw;
             margin-right: 1.5vw;
         }
+        @media only screen and (max-width: 1100px) {
+            &__title {
+                font-size: 0.8em !important;
+            }
+        }
         &__title {
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1em;
         }
     }
     &__match-area:hover,

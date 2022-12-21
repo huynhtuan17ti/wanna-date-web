@@ -47,7 +47,7 @@ const props = defineProps<{
         &__name {
             margin-top: 0px;
             padding-right: 5px;
-            font-size: 1.1em;
+            font-size: 1em;
             margin-bottom: 3px;
             color: #d85076;
             font-weight: bold;

@@ -8,7 +8,7 @@
         <el-col :span="8">
             <div class="setting-area">
                 <el-image class="setting-area__user-image" :src="chatUser.avatar_url"></el-image>
-                <p>You and Emilia liked each other a month ago</p>
+                <p>You and {{ chatUser.name }} liked each other a month ago</p>
                 <div class="setting-area__remove">
                     <el-button type="danger">Block</el-button>
                     <el-button type="warning">Unlike</el-button>

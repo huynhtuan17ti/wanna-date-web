@@ -66,7 +66,7 @@ const decide = (choice: string) => {
     height: 100vh;
     .vue-tinder {
         position: relative;
-        margin-bottom: 20vh;
+        margin-bottom: 10vh;
         height: 75vh;
         width: 22vw;
         :deep(.tinder-card) {
@@ -82,7 +82,7 @@ const decide = (choice: string) => {
         align-items: center;
         justify-content: center;
         img {
-            width: 70px;
+            width: 7vh;
             border-radius: 50%;
             margin-right: 2vw;
             box-shadow: 0 4px 9px rgba(0, 0, 0, 0.15);

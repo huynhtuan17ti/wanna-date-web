@@ -3,7 +3,11 @@
         <img class="container__avatar" :src="avatarUrl" />
         <!-- <el-badge is-dot class="notify-dot" /> -->
         <div class="container__info">
-            <p class="container__info__name">{{ userName }}, {{ age }}</p>
+            <p class="container__info__title">
+                <span>{{ userName }} </span>
+                <span :class="{ 'container__info__title__liked-active': active }"> liked </span>
+                <span>you</span>
+            </p>
         </div>
     </div>
 </template>
@@ -21,12 +25,12 @@ const props = defineProps<{
 <style scoped lang="scss">
 .active {
     background-color: white !important;
-    // background-image: linear-gradient(273.03deg, #58c5a4 0%, rgba(175, 237, 206, 0.473) 10%, rgba(255, 255, 255, 0) 80%);
+    background-image: linear-gradient(273.03deg, #57bcff 0%, rgba(122, 184, 241, 0.473) 10%, rgba(255, 255, 255, 0) 80%);
 }
 .container {
     margin: 10px;
     cursor: pointer;
-    border: 2px solid #58c5a4;
+    border: 2px solid #57bcff;
     border-radius: 10px;
     display: flex;
     height: 10vh;
@@ -38,22 +42,21 @@ const props = defineProps<{
         height: 6vh;
         margin-left: 1.5vw;
         margin-right: 1vw;
-        border: 1px solid #58c5a4;
+        border: 2px solid #57bcff;
     }
     &__info {
         flex-direction: column;
         text-align: left;
         justify-content: center;
-        &__name {
+        &__title {
             margin: auto;
             padding-right: 5px;
-            font-size: 1.1em;
-            color: gray;
-        }
-        &__recent-message {
-            margin-top: 0;
-            font-size: 0.8em;
-            color: #b7a4a4;
+            font-size: 0.9em;
+            color: #528c75;
+            font-weight: 800;
+            &__liked-active {
+                color: #57bcff;
+            }
         }
     }
 }

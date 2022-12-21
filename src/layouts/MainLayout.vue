@@ -15,7 +15,7 @@
     flex-basis: auto;
     box-sizing: border-box;
     width: 100%;
-    height: 100%;
+    height: 100vh;
 
     .main-container__body {
         flex: 1;

@@ -15,7 +15,7 @@ export const useManageStore = defineStore('manage', () => {
         if (activeIndex.value >= 0) likedUserData[activeIndex.value].active = false
 
         activeIndex.value = index
-        likedUserData[activeIndex.value].active = true
+        if (activeIndex.value >= 0) likedUserData[activeIndex.value].active = true
     }
     function accept() {
         if (activeIndex.value >= 0) messageStore.appendUser(likedUserData[activeIndex.value])

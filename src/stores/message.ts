@@ -13,7 +13,7 @@ export const useMessageStore = defineStore('message', () => {
         if (activeIndex.value >= 0) userMessageData[activeIndex.value].active = false
 
         activeIndex.value = index
-        userMessageData[activeIndex.value].active = true
+        if (activeIndex.value >= 0) userMessageData[activeIndex.value].active = true
     }
 
     function appendUser(user: User) {
