@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
@@ -37,9 +38,12 @@ declare module '@vue/runtime-core' {
     MainLayout: typeof import('./layouts/MainLayout.vue')['default']
     MatchPage: typeof import('./views/MatchPage.vue')['default']
     MessageBox: typeof import('./components/MessageBox.vue')['default']
+    RegisterPage: typeof import('./views/RegisterPage.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SettingPage: typeof import('./views/SettingPage.vue')['default']
+    SigninForm: typeof import('./components/SigninForm.vue')['default']
+    SignupForm: typeof import('./components/SignupForm.vue')['default']
     UserCard: typeof import('./components/UserCard.vue')['default']
   }
 }
