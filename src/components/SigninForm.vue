@@ -44,7 +44,7 @@ const formReact = reactive({
     margin: auto;
     margin-top: 10vh;
     width: 25vw;
-    height: 40vh;
+    height: 55%;
     max-height: 100vh;
     background: white;
     text-align: left;
