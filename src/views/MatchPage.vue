@@ -26,6 +26,7 @@
 <script lang="ts" setup>
 import VueTinder from 'vue-tinder'
 import { useSuggestionStore } from '../stores/suggestion'
+import { useUserStore } from '../stores/user'
 import { computed, onMounted, ref } from 'vue'
 import { User } from '~/models/user'
 import { imageData } from '../constants/image'
@@ -34,7 +35,12 @@ const queue = ref<{ key: number; user: User | undefined }[]>([])
 const history = ref<{ key: number; user: User | undefined }[]>([])
 const tinder = ref(null)
 const suggestionStore = useSuggestionStore()
+const userStore = useUserStore()
 const suggestList = computed(() => suggestionStore.suggestList)
+
+onMounted(async () => {
+    await userStore.getUserInfo()
+})
 
 suggestionStore.ids.forEach((id, index) => {
     queue.value.push({ key: index, user: suggestionStore.getUserFromId(id) })

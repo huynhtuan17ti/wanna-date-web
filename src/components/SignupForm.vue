@@ -39,10 +39,14 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '../stores/user'
+
 const router = useRouter()
-const regisFormReact = reactive({
+const userStore = useUserStore()
+
+const regisFormReact = ref({
     fullName: '',
     email: '',
     password: '',
@@ -51,8 +55,9 @@ const regisFormReact = reactive({
     gender: '',
     sexOrientation: '',
 })
-const onSubmitRegis = () => {
-    router.push('\match')
+const onSubmitRegis = async () => {
+    const registerSuccess = await userStore.handleRegister({ email: regisFormReact.value.email, password: regisFormReact.value.password })
+    if (registerSuccess) router.push('/login')
 }
 </script>
 <style scoped lang="scss">
