@@ -3,6 +3,7 @@ import { computed, reactive, ref } from 'vue'
 import { User } from '../models/user'
 import { login, register, user_info } from '../services/user'
 import { sampleUserId, sampleUserData } from '../data/fake_data'
+import { json } from 'stream/consumers'
 
 export const useUserStore = defineStore('user', () => {
     const _userIdx: number | undefined = sampleUserData.findIndex((obj) => obj.id === sampleUserId)
@@ -32,8 +33,12 @@ export const useUserStore = defineStore('user', () => {
 
     async function getUserInfo() {
         const { data } = await user_info()
-        console.log(data)
-        return
+        user.value.id = data.user
+        user.value.age = data.age
+        user.value.avatar_url = 'http://localhost:8000/' + data.avatar_url
+        user.value.name = data.username || 'Anonymous'
+        user.value.is_female = data.is_female
+        return user
     }
 
     return { user, token, update, handleLogin, handleRegister, getUserInfo }

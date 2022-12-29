@@ -8,6 +8,9 @@
             >
             <!-- <img class="bar-container__header__user-setting" src="../assets/setting.png" @click="onClickSettingButton()" /> -->
         </div>
+        <div>
+            <p>{{ user.avatar_url }}</p>
+        </div>
         <div :class="{ 'bar-container__match-area': true, 'bar-container__match-area-active': isMatchActive }" @click="onClickMatchArea()">
             <img class="bar-container__match-area__image" :src="imageData.cards" />
             <!-- <span class="material-symbols-sharp bar-container__match-area__image">view_carousel</span> -->
@@ -27,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user'
 import { useManageStore } from '../stores/manage'
@@ -36,7 +39,6 @@ import { imageData } from '../constants/image'
 
 const isMatchActive = ref(true)
 const router = useRouter()
-
 const userStore = useUserStore()
 const manageStore = useManageStore()
 const messageStore = useMessageStore()
