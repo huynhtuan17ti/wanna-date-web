@@ -1,8 +1,7 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="!userStore.isFetching">
         <el-scrollbar class="container__setting-area">
             <h2 class="container__setting-area__header">Settings</h2>
-            <p>{{ currentUser.avatar_url }}</p>
             <div class="container__setting-area__setting-option">
                 <el-form :model="currentUser" label-width="auto" size="large" label-position="top">
                     <!-- TODO: reimplement avatar upload -->
@@ -58,7 +57,6 @@
             </div>
         </el-scrollbar>
         <div class="container__user-card">
-            <p>{{ currentUser.avatar_url }}</p>
             <user-card v-model="currentUser" card-type="normal"></user-card>
         </div>
     </div>
@@ -74,15 +72,14 @@ import { ElMessage } from 'element-plus'
 import { useUserStore } from '../stores/user'
 import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps, FormInstance } from 'element-plus'
+import { update_user_info } from '../services/user'
 
 // user store
 const userStore = useUserStore()
 onMounted(async () => {
     await userStore.getUserInfo()
+    currentUser.value = Object.assign({}, userStore.user)
 })
-console.log('cover1')
-console.log(userStore.user)
-console.log('cover2')
 const currentUser = ref(Object.assign({}, userStore.user))
 
 // upload image
@@ -105,7 +102,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 
 // setting buttons
 const onUpdate = () => {
-    userStore.update(currentUser.value)
+    userStore.updateUserInfo(currentUser.value)
     currentUser.value = Object.assign({}, userStore.user)
 }
 

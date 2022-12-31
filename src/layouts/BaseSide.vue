@@ -1,5 +1,5 @@
 <template>
-    <div class="bar-container">
+    <div class="bar-container" v-if="!userStore.isFetching">
         <div class="bar-container__header">
             <img class="bar-container__header__image" :src="user.avatar_url" alt="Avatar" />
             <p class="bar-container__header__user-name">{{ user.name }}</p>
@@ -7,9 +7,6 @@
                 >manage_accounts</span
             >
             <!-- <img class="bar-container__header__user-setting" src="../assets/setting.png" @click="onClickSettingButton()" /> -->
-        </div>
-        <div>
-            <p>{{ user.avatar_url }}</p>
         </div>
         <div :class="{ 'bar-container__match-area': true, 'bar-container__match-area-active': isMatchActive }" @click="onClickMatchArea()">
             <img class="bar-container__match-area__image" :src="imageData.cards" />
@@ -30,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user'
 import { useManageStore } from '../stores/manage'

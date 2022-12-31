@@ -15,3 +15,19 @@ export function logout() {
 export function user_info() {
     return api.get<any>('/api/profile/users')
 }
+
+export function update_user_setting(data: {
+    id: string
+    avatar_url: string
+    header_url: string
+    name: string
+    age: number
+    is_female: boolean
+    short_introduce: string
+    work: string
+    interest: string
+    location: string
+    premium: boolean
+}) {
+    return api.put<any>('/api/profile/settings', data)
+}
