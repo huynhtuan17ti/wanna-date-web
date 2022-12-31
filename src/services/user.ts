@@ -17,17 +17,18 @@ export function user_info() {
 }
 
 export function update_user_setting(data: {
-    id: string
+    user_name: string
     avatar_url: string
     header_url: string
-    name: string
-    age: number
+    about_me: string
+    birthday: number
     is_female: boolean
-    short_introduce: string
-    work: string
-    interest: string
-    location: string
-    premium: boolean
+    address: string
+    street: string
+    district: string
+    city: string
+    country: string
+    language: string
 }) {
     return api.put<any>('/api/profile/settings', data)
 }

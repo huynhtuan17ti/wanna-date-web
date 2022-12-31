@@ -50,21 +50,24 @@ export const useUserStore = defineStore('user', () => {
         return user
     }
 
-    async function updateUserInfo(user_info: User) {
+    async function updateUserSetting(user_info: User) {
         const { data } = await update_user_setting({
-            id: user_info.id,
+            user_name: user_info.name,
             avatar_url: user_info.avatar_url,
             header_url: user_info.header_url,
-            name: user_info.name,
-            age: user_info.age,
-            is_female: user_info.is_female,
             about_me: user_info.short_introduce,
-            company: user_info.work,
-            hobby: user_info.interest,
+            birthday: user_info.age,
+            is_female: user_info.is_female,
+            address: user_info.location,
+            street: '',
+            district: '',
+            city: '',
+            country: user_info.location,
+            language: '',
         })
         if (!data) return false
         return true
     }
 
-    return { user, token, isFetching, update, handleLogin, handleRegister, getUserInfo, updateUserInfo }
+    return { user, token, isFetching, update, handleLogin, handleRegister, getUserInfo, updateUserSetting }
 })

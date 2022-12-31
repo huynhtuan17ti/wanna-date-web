@@ -72,7 +72,7 @@ import { ElMessage } from 'element-plus'
 import { useUserStore } from '../stores/user'
 import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps, FormInstance } from 'element-plus'
-import { update_user_info } from '../services/user'
+import { update_user_setting } from '../services/user'
 
 // user store
 const userStore = useUserStore()
@@ -102,7 +102,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 
 // setting buttons
 const onUpdate = () => {
-    userStore.updateUserInfo(currentUser.value)
+    userStore.updateUserSetting(currentUser.value)
     currentUser.value = Object.assign({}, userStore.user)
 }
 
