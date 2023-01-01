@@ -52,7 +52,7 @@ const props = defineProps<{
             margin: auto;
             padding-right: 5px;
             font-size: 0.9em;
-            color: #528c75;
+            color: #7dc796;
             font-weight: 800;
             &__liked-active {
                 color: #57bcff;

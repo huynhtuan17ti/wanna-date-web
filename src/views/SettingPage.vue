@@ -1,113 +1,120 @@
 <template>
-    <div class="container" v-if="!userStore.isFetching">
-        <el-scrollbar class="container__setting-area">
-            <h2 class="container__setting-area__header">Settings</h2>
-            <div class="container__setting-area__setting-option">
-                <el-form :model="currentUser" label-width="auto" size="large" label-position="top">
-                    <!-- TODO: reimplement avatar upload -->
-                    <el-form-item label="Header image">
-                        <el-upload
-                            class="header-uploader"
-                            action="https://jsonplaceholder.typicode.com/posts/"
-                            :show-file-list="false"
-                            :on-success="handleAvatarSuccess"
-                            :before-upload="beforeAvatarUpload"
-                        >
-                            <img v-if="imageUrl" :src="imageUrl" class="header" />
-                            <el-icon v-else class="header-uploader-icon"><Plus /></el-icon>
-                        </el-upload>
-                    </el-form-item>
-                    <el-form-item label="Upload avatar">
-                        <div class="avatar-box">
-                            <img class="avatar-box__img" :src="currentUser.avatar_url" />
-                            <p class="avatar-box__text">Click here to change your avatar</p>
-                        </div>
-                    </el-form-item>
-                    <el-form-item label="Your name">
-                        <el-input v-model="currentUser.name" />
-                    </el-form-item>
-                    <el-form-item label="Your age">
-                        <el-input-number v-model="currentUser.age" :min="16" :max="100" />
-                    </el-form-item>
-                    <el-form-item label="Gender">
-                        <el-select v-model="currentUser.is_female" clearable>
-                            <el-option v-for="item in genderOptions" :key="item.key" :label="item.label" :value="item.value" />
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="Short introduction">
-                        <el-input v-model="currentUser.short_introduce" />
-                    </el-form-item>
-                    <el-form-item label="Work">
-                        <el-input v-model="currentUser.work" />
-                    </el-form-item>
-                    <el-form-item label="Interests">
-                        <el-input v-model="currentUser.interest" />
-                    </el-form-item>
-                    <el-form-item label="Location">
-                        <el-input v-model="currentUser.location" />
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="danger" text bg style="margin: auto" @click="onActivatePremium()">Upgrade to premium</el-button>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="danger" plain @click="onUpdate()">Update</el-button>
-                        <el-button type="info" plain @click="onReset()">Reset</el-button>
-                    </el-form-item>
-                </el-form>
+    <div>
+        <div class="container">
+            <el-scrollbar class="container__setting-area">
+                <h2 class="container__setting-area__header">Settings</h2>
+                <div class="container__setting-area__setting-option">
+                    <el-form :model="currentUser" label-width="auto" size="large" label-position="top">
+                        <!-- TODO: reimplement avatar upload -->
+                        <el-form-item label="Header image">
+                            <!-- <el-upload
+                                class="header-uploader"
+                                action="https://jsonplaceholder.typicode.com/posts/"
+                                :show-file-list="false"
+                                :on-success="handleAvatarSuccess"
+                                :before-upload="beforeAvatarUpload"
+                            >
+                                <img v-if="imageUrl" :src="imageUrl" class="header" />
+                                <el-icon v-else class="header-uploader-icon"><Plus /></el-icon>
+                            </el-upload> -->
+                            <el-input v-model="currentUser.header_url" />
+                        </el-form-item>
+                        <el-form-item label="Upload avatar">
+                            <!-- <div class="avatar-box">
+                                <img class="avatar-box__img" :src="currentUser.avatar_url" />
+                                <p class="avatar-box__text">Click here to change your avatar</p>
+                            </div> -->
+                            <el-input v-model="currentUser.avatar_url" />
+                        </el-form-item>
+                        <el-form-item label="Your name">
+                            <el-input v-model="currentUser.user_name" />
+                        </el-form-item>
+                        <!-- <el-form-item label="Your age">
+                            <el-input-number v-model="currentUser.age" :min="16" :max="100" />
+                        </el-form-item> -->
+                        <el-form-item label="Gender">
+                            <el-select v-model="currentUser.is_female" clearable>
+                                <el-option v-for="item in genderOptions" :key="item.key" :label="item.label" :value="item.value" />
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="Short introduction">
+                            <el-input v-model="currentUser.about_me" />
+                        </el-form-item>
+                        <el-form-item label="Work">
+                            <el-input v-model="currentUser.company" />
+                        </el-form-item>
+                        <el-form-item label="Interests">
+                            <el-input v-model="currentUser.hobby" />
+                        </el-form-item>
+                        <el-form-item label="Location">
+                            <el-input v-model="currentUser.country" />
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="danger" text bg style="margin: auto" @click="onActivatePremium()"
+                                >Upgrade to premium</el-button
+                            >
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="danger" plain @click="onUpdate()">Update</el-button>
+                            <el-button type="info" plain @click="onReset()">Reset</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </el-scrollbar>
+            <div class="container__user-card">
+                <user-card v-model="currentUser" card-type="normal"></user-card>
             </div>
-        </el-scrollbar>
-        <div class="container__user-card">
-            <user-card v-model="currentUser" card-type="normal"></user-card>
         </div>
-    </div>
 
-    <el-dialog v-model="dialogVisible" title="Premium status" width="30%" align-center>
-        <span>{{ premiumStatus }}</span>
-    </el-dialog>
+        <el-dialog v-model="dialogVisible" title="Premium status" width="30%" align-center>
+            <span>{{ premiumStatus }}</span>
+        </el-dialog>
+    </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
-import { useUserStore } from '../stores/user'
+import { useAccountStore } from '../stores/account'
 import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps, FormInstance } from 'element-plus'
 import { update_user_setting } from '../services/user'
 
 // user store
-const userStore = useUserStore()
+const accountStore = useAccountStore()
 onMounted(async () => {
-    await userStore.getUserInfo()
-    currentUser.value = Object.assign({}, userStore.user)
+    await accountStore.getUserInfo()
+    currentUser.value = Object.assign({}, accountStore.user)
 })
-const currentUser = ref(Object.assign({}, userStore.user))
+const currentUser = ref(Object.assign({}, accountStore.user))
 
-// upload image
-const imageUrl = ref('')
+// // upload image
+// const imageUrl = ref('')
 
-const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
-    imageUrl.value = URL.createObjectURL(uploadFile.raw!)
-}
+// const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
+//     imageUrl.value = URL.createObjectURL(uploadFile.raw!)
+// }
 
-const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-    if (rawFile.type !== 'image/jpeg') {
-        ElMessage.error('Avatar picture must be JPG format!')
-        return false
-    } else if (rawFile.size / 1024 / 1024 > 2) {
-        ElMessage.error('Avatar picture size can not exceed 2MB!')
-        return false
-    }
-    return true
-}
+// const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
+//     if (rawFile.type !== 'image/jpeg') {
+//         ElMessage.error('Avatar picture must be JPG format!')
+//         return false
+//     } else if (rawFile.size / 1024 / 1024 > 2) {
+//         ElMessage.error('Avatar picture size can not exceed 2MB!')
+//         return false
+//     }
+//     return true
+// }
 
 // setting buttons
-const onUpdate = () => {
-    userStore.updateUserSetting(currentUser.value)
-    currentUser.value = Object.assign({}, userStore.user)
+const onUpdate = async () => {
+    console.log('shit: ', currentUser.value)
+    await accountStore.updateUserInfo(currentUser.value)
+    currentUser.value = Object.assign({}, accountStore.user)
 }
 
 const onReset = () => {
-    currentUser.value = Object.assign({}, userStore.user)
+    currentUser.value = Object.assign({}, accountStore.user)
 }
 
 // gender selection
@@ -128,14 +135,16 @@ const genderOptions = ref([
 const dialogVisible = ref(false)
 const onActivatePremium = () => {
     dialogVisible.value = true
-    currentUser.value.premium = true
+    // currentUser.value.premium = true
 }
 
-const premiumStatus = computed(() =>
-    currentUser.value.premium
-        ? 'You already activated premium. Thanks for your support.'
-        : 'Your preimum account is activated. You can use super like feature right now.'
-)
+const premiumStatus = ref('You already activated premium. Thanks for your support.')
+
+// const premiumStatus = computed(() =>
+//     currentUser.value.premium
+//         ? 'You already activated premium. Thanks for your support.'
+//         : 'Your preimum account is activated. You can use super like feature right now.'
+// )
 </script>
 
 <style scoped lang="scss">

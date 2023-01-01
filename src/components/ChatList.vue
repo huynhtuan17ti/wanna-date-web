@@ -3,7 +3,7 @@
         <chat-box
             v-for="(item, index) in data"
             :key="index"
-            :user-name="item.user.name"
+            :user-name="item.user.user_name"
             :avatar-url="item.user.avatar_url"
             :recent-message="getRecentMessage(item.message)"
             :active="item.active"
@@ -13,9 +13,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, reactive, watch } from 'vue'
+import { computed, ref, reactive, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMessageStore } from '../stores/message'
+
+onMounted(async () => {
+    await messageStore.fetchAllMessages()
+})
 
 const router = useRouter()
 const messageStore = useMessageStore()

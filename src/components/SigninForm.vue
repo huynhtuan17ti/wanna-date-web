@@ -23,17 +23,17 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
-import { useUserStore } from '../stores/user'
+import { useAccountStore } from '../stores/account'
 
 const router = useRouter()
-const userStore = useUserStore()
+const accountStore = useAccountStore()
 
 const onRegisterRoute = () => {
     router.push('/register')
 }
 
 const onSubmit = async () => {
-    const loginSuccess = await userStore.handleLogin({ email: formReact.value.email, password: formReact.value.password })
+    const loginSuccess = await accountStore.handleLogin({ email: formReact.value.email, password: formReact.value.password })
     if (loginSuccess) router.push('/match')
 }
 

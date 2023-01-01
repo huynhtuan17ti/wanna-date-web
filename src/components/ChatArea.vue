@@ -8,7 +8,7 @@
         <!-- Messages area -->
         <el-scrollbar ref="scrollbarRef" class="container__message-area">
             <message-box
-                v-for="(item, index) in messageData"
+                v-for="(item, index) in chatThread"
                 :key="index"
                 :user-side="item.side"
                 :message="item.content"
@@ -22,27 +22,27 @@
 import { computed, ref, watch } from 'vue'
 import { ElScrollbar } from 'element-plus'
 import { useMessageStore } from '../stores/message'
-import { useUserStore } from '../stores/user'
+import { useAccountStore } from '../stores/account'
 
 // user
-const userStore = useUserStore()
-const user = computed(() => userStore.user)
+const accountStore = useAccountStore()
+const user = computed(() => accountStore.user)
 
 const input = ref('')
 const messageStore = useMessageStore()
 // TODO: fix this
-const messageData = computed(() => messageStore.activeMessage)
-const chatUser = computed(() => messageStore.activeUser)
+const chatThread = computed(() => messageStore.chatThread)
+const chatUser = computed(() => messageStore.chatUser)
 const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>()
 
 // avatar handle
 const getAvatar = (user_side: boolean) => {
-    return user_side ? user.value.avatar_url : chatUser.value?.avatar_url
+    return user_side ? user.value?.avatar_url : chatUser.value?.avatar_url
 }
 
 const onSend = () => {
-    if (input.value === '' || messageData.value === undefined) return
-    messageStore.appendMessage(input.value, true)
+    if (input.value === '' || chatThread.value === undefined) return
+    messageStore.sendMessage(input.value)
     input.value = ''
     // TODO: temporary fix
     scrollbarRef.value?.setScrollTop(100000000)

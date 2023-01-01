@@ -6,9 +6,9 @@
             </div>
         </el-col>
         <el-col :span="8">
-            <div class="setting-area">
+            <div class="setting-area" v-if="chatUser">
                 <el-image class="setting-area__user-image" :src="chatUser.avatar_url"></el-image>
-                <p>You and {{ chatUser.name }} liked each other a month ago</p>
+                <p>You and {{ chatUser.user_name }} liked each other a month ago</p>
                 <div class="setting-area__remove">
                     <el-button type="danger">Block</el-button>
                     <el-button type="warning">Unlike</el-button>
@@ -20,11 +20,10 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { imageData } from '../constants/image'
 import { useMessageStore } from '../stores/message'
 
 const messageStore = useMessageStore()
-const chatUser = computed(() => messageStore.activeUser)
+const chatUser = computed(() => messageStore.chatUser)
 </script>
 
 <style scoped lang="scss">

@@ -1,8 +1,8 @@
 <template>
-    <div class="bar-container" v-if="!userStore.isFetching">
+    <div class="bar-container" v-if="user">
         <div class="bar-container__header">
             <img class="bar-container__header__image" :src="user.avatar_url" alt="Avatar" />
-            <p class="bar-container__header__user-name">{{ user.name }}</p>
+            <p class="bar-container__header__user-name">{{ user.user_name }}</p>
             <span class="material-symbols-rounded bar-container__header__user-setting" @click="onClickSettingButton()"
                 >manage_accounts</span
             >
@@ -29,18 +29,18 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '../stores/user'
+import { useAccountStore } from '../stores/account'
 import { useManageStore } from '../stores/manage'
 import { useMessageStore } from '../stores/message'
 import { imageData } from '../constants/image'
 
 const isMatchActive = ref(true)
 const router = useRouter()
-const userStore = useUserStore()
+const accountStore = useAccountStore()
 const manageStore = useManageStore()
 const messageStore = useMessageStore()
 
-const user = computed(() => userStore.user)
+const user = computed(() => accountStore.user)
 
 const onClickMatchArea = () => {
     isMatchActive.value = true

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
-import { useUserStore } from '../stores/user'
+import { useAccountStore } from '../stores/account'
 
 const service = axios.create({
     baseURL: import.meta.env.VITE_URL,
@@ -11,17 +11,16 @@ const service = axios.create({
 // Request interceptors
 service.interceptors.request.use(
     async (config) => {
-        const userStore = useUserStore()
+        const accountStore = useAccountStore()
 
         // Add X-Access-Token header to every request, you can add other custom headers here
-        if (userStore.token) {
+        if (accountStore.token) {
             if (config.headers === undefined) {
                 config.headers = {}
             }
 
-            config.headers.Authorization = 'Bearer ' + userStore.token
+            config.headers.Authorization = 'Bearer ' + accountStore.token
         }
-        console.log(config)
         return config
     },
     (error) => {

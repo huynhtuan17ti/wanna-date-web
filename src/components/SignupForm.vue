@@ -41,10 +41,10 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '../stores/user'
+import { useAccountStore } from '../stores/account'
 
 const router = useRouter()
-const userStore = useUserStore()
+const accountStore = useAccountStore()
 
 const regisFormReact = ref({
     fullName: '',
@@ -56,7 +56,10 @@ const regisFormReact = ref({
     sexOrientation: '',
 })
 const onSubmitRegis = async () => {
-    const registerSuccess = await userStore.handleRegister({ email: regisFormReact.value.email, password: regisFormReact.value.password })
+    const registerSuccess = await accountStore.handleRegister({
+        email: regisFormReact.value.email,
+        password: regisFormReact.value.password,
+    })
     if (registerSuccess) router.push('/login')
 }
 </script>

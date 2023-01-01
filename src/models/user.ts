@@ -1,15 +1,24 @@
 export interface User {
-    id: string
+    user: number
+
     avatar_url: string
     header_url: string
 
-    name: string
-    age: number
+    user_name: string
     is_female: boolean
+    birthday: string | undefined
 
-    short_introduce: string
-    work: string
-    interest: string
-    location: string
-    premium: boolean
+    about_me: string
+
+    company: string
+    school: string
+
+    city: string
+    country: string
+    district: string
+    street: string
+    address: string
+
+    hobby: string
+    language: string
 }

@@ -46,4 +46,7 @@ declare module '@vue/runtime-core' {
     SignupForm: typeof import('./components/SignupForm.vue')['default']
     UserCard: typeof import('./components/UserCard.vue')['default']
   }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }

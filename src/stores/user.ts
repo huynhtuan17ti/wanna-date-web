@@ -1,73 +1,33 @@
 import { defineStore } from 'pinia'
-import { computed, reactive, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { User } from '../models/user'
-import { login, register, user_info, update_user_setting } from '../services/user'
-import { sampleUserId, sampleUserData } from '../data/fake_data'
-import { json } from 'stream/consumers'
-import { fa } from 'element-plus/es/locale'
+import { useAccountStore } from './account'
+import { get_all_user, get_specific_user } from '../services/user'
+import { sampleUserData, sampleUserId } from '../data/fake_data'
 
 export const useUserStore = defineStore('user', () => {
-    const _userIdx: number | undefined = sampleUserData.findIndex((obj) => obj.id === sampleUserId)
-    const user = ref(sampleUserData[_userIdx])
-    const token = ref(localStorage.getItem('access_token') || '')
-    const isFetching = ref(true)
+    const accountStore = useAccountStore()
+    const user_list = ref<User[]>([])
+    const suggest_list = computed(() => user_list.value.filter((item) => item.user !== accountStore.user?.user))
 
-    function update(user_info: User) {
-        if (_userIdx === undefined) return
-        user.value = user_info
+    async function getAllUsers() {
+        if (user_list.value.length > 0) return
+        const { data } = await get_all_user()
+        for (let index = 0; index < data.length; index++) {
+            const user_item = await fetchUserFromId(data[index].user_id)
+            if (user_item !== undefined) user_list.value.push(user_item)
+        }
     }
 
-    async function handleLogin(user_info: { email: string; password: string }) {
-        const { data } = await login(user_info)
-        if (!data) return false
-        // set token
-        token.value = data.jwt
-        localStorage.setItem('access_token', data.jwt)
-        console.log(token.value)
-        return true
+    async function fetchUserFromId(user_id: number) {
+        const { data } = await get_specific_user(user_id)
+        if (data.user_name === null) return undefined
+        return data
     }
 
-    async function handleRegister(user_info: { email: string; password: string }) {
-        const { data } = await register(user_info)
-        if (!data) return false
-        return true
+    function getUserFromId(user_id: number) {
+        return user_list.value.find((item) => item.user === user_id)
     }
 
-    async function getUserInfo() {
-        const { data } = await user_info()
-        if (!data) return false
-        user.value.id = data.user
-        user.value.age = data.age
-        user.value.avatar_url = 'http://localhost:8000/' + data.avatar_url
-        // user.value.header_url = 'http://localhost:8000/' + data.header_url
-        user.value.name = data.username || 'Anonymous'
-        user.value.is_female = data.is_female
-        user.value.interest = data.hobby
-        user.value.location = (data.street || '') + ' ' + (data.district || '') + ' ' + (data.city || '') + ' ' + (data.country || '')
-        user.value.short_introduce = data.about_me
-        user.value.work = data.company || data.school || 'Private'
-        isFetching.value = false
-        return user
-    }
-
-    async function updateUserSetting(user_info: User) {
-        const { data } = await update_user_setting({
-            user_name: user_info.name,
-            avatar_url: user_info.avatar_url,
-            header_url: user_info.header_url,
-            about_me: user_info.short_introduce,
-            birthday: user_info.age,
-            is_female: user_info.is_female,
-            address: user_info.location,
-            street: '',
-            district: '',
-            city: '',
-            country: user_info.location,
-            language: '',
-        })
-        if (!data) return false
-        return true
-    }
-
-    return { user, token, isFetching, update, handleLogin, handleRegister, getUserInfo, updateUserSetting }
+    return { user_list, suggest_list, getUserFromId, getAllUsers }
 })

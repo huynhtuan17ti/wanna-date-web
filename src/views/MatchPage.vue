@@ -1,50 +1,66 @@
 <template>
-    <div class="container">
-        <vue-tinder ref="tinder" key-name="key" v-model:queue="queue" :max="3" :offset-y="10" allow-down @submit="onSubmit">
-            <template #default="{ data }">
-                <user-card v-model="data.user" card-type="normal"></user-card>
-            </template>
-            <template #like></template>
-            <template #nope></template>
-            <template #super></template>
-            <template #down></template>
-            <template v-slot:rewind>
-                <span>REWIND</span>
-            </template>
-        </vue-tinder>
-        <div class="btns">
-            <img src="../assets/rewind.png" @click="decide('rewind')" />
-            <img src="../assets/nope.png" @click="decide('nope')" />
-            <img src="../assets/super-like.png" @click="decide('super')" />
-            <img src="../assets/like.png" @click="decide('like')" />
-            <img src="../assets/help.png" @click="decide('help')" />
+    <div>
+        <div class="container" v-loading="!fetchDone" element-loading-background="transparent">
+            <vue-tinder
+                v-if="fetchDone"
+                ref="tinder"
+                key-name="key"
+                v-model:queue="queue"
+                :max="3"
+                :offset-y="10"
+                allow-down
+                @submit="onSubmit"
+            >
+                <template #default="{ data }">
+                    <user-card v-model="data.user" card-type="normal"></user-card>
+                </template>
+                <template #like></template>
+                <template #nope></template>
+                <template #super></template>
+                <template #down></template>
+                <template v-slot:rewind>
+                    <span>REWIND</span>
+                </template>
+            </vue-tinder>
+            <div class="btns">
+                <img src="../assets/rewind.png" @click="decide('rewind')" />
+                <img src="../assets/nope.png" @click="decide('nope')" />
+                <img src="../assets/super-like.png" @click="decide('super')" />
+                <img src="../assets/like.png" @click="decide('like')" />
+                <img src="../assets/help.png" @click="decide('help')" />
+            </div>
         </div>
+        <img class="notification" :src="imageData.notification" />
     </div>
-    <img class="notification" :src="imageData.notification" />
 </template>
 
 <script lang="ts" setup>
 import VueTinder from 'vue-tinder'
-import { useSuggestionStore } from '../stores/suggestion'
 import { useUserStore } from '../stores/user'
-import { computed, onMounted, ref } from 'vue'
+import { useAccountStore } from '../stores/account'
+import { computed, onBeforeMount, onMounted, ref } from 'vue'
 import { User } from '~/models/user'
 import { imageData } from '../constants/image'
 
-const queue = ref<{ key: number; user: User | undefined }[]>([])
-const history = ref<{ key: number; user: User | undefined }[]>([])
-const tinder = ref(null)
-const suggestionStore = useSuggestionStore()
 const userStore = useUserStore()
-const suggestList = computed(() => suggestionStore.suggestList)
+const accountStore = useAccountStore()
+const suggest_list = computed(() => userStore.suggest_list)
 
 onMounted(async () => {
-    await userStore.getUserInfo()
+    await initializeUsers()
 })
 
-suggestionStore.ids.forEach((id, index) => {
-    queue.value.push({ key: index, user: suggestionStore.getUserFromId(id) })
-})
+// tinder
+const queue = ref<{ key: number; user: User }[]>([])
+const history = ref<{ key: number; user: User | undefined }[]>([])
+const tinder = ref(null)
+const fetchDone = ref(false)
+const initializeUsers = async () => {
+    for (let index = 0; index < suggest_list.value.length; index++) {
+        queue.value.push({ key: index, user: suggest_list.value[index] })
+    }
+    fetchDone.value = true
+}
 
 const onSubmit = ({ type, key, item }) => {
     history.value.push(item)
@@ -59,6 +75,9 @@ const decide = (choice: string) => {
     } else if (choice == 'help') {
         // TODO: handle help
         return
+    } else if (choice == 'like' || choice == 'super') {
+        // console.log(queue.value[0].user)
+        userStore.likeUser(queue.value[0].user.user)
     }
     tinder.value.decide(choice)
 }
@@ -66,11 +85,11 @@ const decide = (choice: string) => {
 
 <style scoped lang="scss">
 .container {
-    margin-top: 5vh;
     display: flex;
     justify-content: center;
     height: 100vh;
     .vue-tinder {
+        margin-top: 5vh;
         position: relative;
         margin-bottom: 10vh;
         height: 75vh;
