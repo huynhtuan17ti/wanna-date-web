@@ -133,8 +133,10 @@ const genderOptions = ref([
 
 // premium setting
 const dialogVisible = ref(false)
-const onActivatePremium = () => {
+const onActivatePremium = async () => {
     dialogVisible.value = true
+    window.open(import.meta.env.VITE_URL + 'api/profile/upgrade', '_blank', 'noreferrer')
+    // await accountStore.upgradePremium()
     // currentUser.value.premium = true
 }
 

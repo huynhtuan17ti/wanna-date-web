@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { computed, reactive, ref } from 'vue'
 import { User } from '../models/user'
 import { useMessageStore } from './message'
-import { login, register, user_info, update_user_setting, react_user, logout, unlike_user } from '../services/user'
+import { login, register, user_info, update_user_setting, react_user, logout, unlike_user, upgrade_premium } from '../services/user'
 import { sampleUserId, sampleUserData } from '../data/fake_data'
 
 export const useAccountStore = defineStore('account', () => {
@@ -50,7 +50,6 @@ export const useAccountStore = defineStore('account', () => {
     async function likeUser(user_id: number) {
         const { data } = await react_user(user_id, 1)
         if (!data) return false
-        messageStore.fetchAllMessages(true)
         return data
     }
 
@@ -61,5 +60,11 @@ export const useAccountStore = defineStore('account', () => {
         return true
     }
 
-    return { user, token, handleLogin, handleRegister, handleLogout, getUserInfo, updateUserInfo, likeUser, unlikedUser }
+    async function upgradePremium() {
+        const { data } = await upgrade_premium()
+        if (!data) return false
+        return true
+    }
+
+    return { user, token, handleLogin, handleRegister, handleLogout, getUserInfo, updateUserInfo, likeUser, unlikedUser, upgradePremium }
 })

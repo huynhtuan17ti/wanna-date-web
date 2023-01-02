@@ -25,7 +25,8 @@ export const useMessageStore = defineStore('message', () => {
 
     async function fetchAllMessages(restart: boolean = false) {
         const { data } = await get_all_messages()
-        if (userMessageData.length == 0 || restart) {
+        if (userMessageData.length === 0 || restart) {
+            userMessageData.splice(0)
             for (let index = 0; index < data.length; index++) {
                 const item = data[index]
                 const user_id = item.user_id_1_id === accountStore.user?.user ? item.user_id_2_id : item.user_id_1_id

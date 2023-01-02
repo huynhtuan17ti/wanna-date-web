@@ -49,3 +49,7 @@ export function unlike_user(user_id_1: number, user_id_2: number) {
 export function unmatch_user(user_id_1: number, user_id_2: number) {
     return api.delete<any>('/api/func/usernomatch/' + user_id_1 + '/' + user_id_2)
 }
+
+export function upgrade_premium() {
+    return api.get<any>('/api/profile/upgrade')
+}
