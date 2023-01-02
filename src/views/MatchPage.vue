@@ -30,25 +30,32 @@
                 <img src="../assets/help.png" @click="decide('help')" />
             </div>
         </div>
-        <img class="notification" :src="imageData.notification" />
+        <img class="logout" :src="imageData.logout" @click="onLogout()" />
     </div>
 </template>
 
 <script lang="ts" setup>
 import VueTinder from 'vue-tinder'
-import { useUserStore } from '../stores/user'
+import { useRouter } from 'vue-router'
 import { useAccountStore } from '../stores/account'
+import { useManageStore } from '../stores/manage'
 import { computed, onBeforeMount, onMounted, ref } from 'vue'
 import { User } from '~/models/user'
 import { imageData } from '../constants/image'
 
-const userStore = useUserStore()
+const router = useRouter()
 const accountStore = useAccountStore()
-const suggest_list = computed(() => userStore.suggest_list)
+const manageStore = useManageStore()
+const suggest_list = computed(() => manageStore.suggestUserData)
 
 onMounted(async () => {
     await initializeUsers()
 })
+
+const onLogout = async () => {
+    await accountStore.handleLogout()
+    router.push('/login')
+}
 
 // tinder
 const queue = ref<{ key: number; user: User }[]>([])
@@ -77,7 +84,7 @@ const decide = (choice: string) => {
         return
     } else if (choice == 'like' || choice == 'super') {
         // console.log(queue.value[0].user)
-        userStore.likeUser(queue.value[0].user.user)
+        accountStore.likeUser(queue.value[0].user.user)
     }
     tinder.value.decide(choice)
 }
@@ -116,7 +123,8 @@ const decide = (choice: string) => {
         }
     }
 }
-.notification {
+.logout {
+    cursor: pointer;
     position: absolute;
     width: 3vw;
     top: 1vh;

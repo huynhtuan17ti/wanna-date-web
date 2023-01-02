@@ -4,13 +4,13 @@
         <!-- <el-badge is-dot class="notify-dot" /> -->
         <div class="container__info">
             <p class="container__info__name">{{ userName }}</p>
-            <p class="container__info__recent-message">{{ recentMessage }}</p>
+            <p class="container__info__recent-message">{{ handleRecentMessage }}</p>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 const props = defineProps<{
     userName: string
     avatarUrl: string
@@ -18,6 +18,11 @@ const props = defineProps<{
     active: boolean
     // notification: boolean
 }>()
+
+const maxLengthMessage = 25
+const handleRecentMessage = computed(() =>
+    props.recentMessage.length > maxLengthMessage ? props.recentMessage.substring(0, maxLengthMessage) + '...' : props.recentMessage
+)
 </script>
 
 <style scoped lang="scss">
@@ -54,6 +59,7 @@ const props = defineProps<{
         }
         &__recent-message {
             margin-top: 0;
+            margin-right: 5px;
             font-size: 0.8em;
             color: #b7a4a4;
         }

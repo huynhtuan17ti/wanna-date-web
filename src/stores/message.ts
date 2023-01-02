@@ -23,20 +23,32 @@ export const useMessageStore = defineStore('message', () => {
         if (activeIndex.value >= 0) userMessageData[activeIndex.value].active = true
     }
 
-    async function fetchAllMessages() {
+    async function fetchAllMessages(restart: boolean = false) {
         const { data } = await get_all_messages()
-        if (userMessageData.length > 0) return
-        for (let index = 0; index < data.length; index++) {
-            const item = data[index]
-            const user_id = item.user_id_1_id === accountStore.user?.user ? item.user_id_2_id : item.user_id_1_id
-            const res = await get_message_thread(user_id)
-            console.log(res.data)
+        if (userMessageData.length == 0 || restart) {
+            for (let index = 0; index < data.length; index++) {
+                const item = data[index]
+                const user_id = item.user_id_1_id === accountStore.user?.user ? item.user_id_2_id : item.user_id_1_id
+                const res = await get_message_thread(user_id)
+                const messages = res.data.map((message) => ({
+                    content: message.message,
+                    side: message.sender_id_id !== user_id,
+                }))
+
+                const cur_user = userStore.getUserFromId(user_id)
+                userMessageData.push({ user: cur_user, active: false, message: messages.reverse() })
+            }
+        } else {
+            for (let index = 0; index < userMessageData.length; index++) {
+                const user_id = userMessageData[index].user.user
+                const res = await get_message_thread(user_id)
+                const messages = res.data.map((message) => ({
+                    content: message.message,
+                    side: message.sender_id_id !== user_id,
+                }))
+                userMessageData[index].message = messages.reverse()
+            }
         }
-        data.forEach((item) => {
-            const user_id = item.user_id_1_id === accountStore.user?.user ? item.user_id_2_id : item.user_id_1_id
-            const cur_user = userStore.getUserFromId(user_id)
-            userMessageData.push({ user: cur_user, active: false, message: sampleMessageData })
-        })
     }
 
     async function sendMessage(content: string) {

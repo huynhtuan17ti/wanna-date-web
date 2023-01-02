@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia'
 import { computed, reactive, ref } from 'vue'
 import { User } from '../models/user'
-import { login, register, user_info, update_user_setting, react_user, unmatch_user, unlike_user } from '../services/user'
+import { useMessageStore } from './message'
+import { login, register, user_info, update_user_setting, react_user, logout, unlike_user } from '../services/user'
 import { sampleUserId, sampleUserData } from '../data/fake_data'
 
 export const useAccountStore = defineStore('account', () => {
+    const messageStore = useMessageStore()
+
     const user = ref<User>()
     const token = ref(localStorage.getItem('access_token') || '')
 
@@ -23,6 +26,13 @@ export const useAccountStore = defineStore('account', () => {
         return true
     }
 
+    async function handleLogout() {
+        const { data } = await logout()
+        if (!data) return false
+        localStorage.clear()
+        return true
+    }
+
     async function getUserInfo() {
         const { data } = await user_info()
         if (!data) return false
@@ -38,8 +48,9 @@ export const useAccountStore = defineStore('account', () => {
     }
 
     async function likeUser(user_id: number) {
-        const { data } = await react_user(user_id, 3)
+        const { data } = await react_user(user_id, 1)
         if (!data) return false
+        messageStore.fetchAllMessages(true)
         return data
     }
 
@@ -50,5 +61,5 @@ export const useAccountStore = defineStore('account', () => {
         return true
     }
 
-    return { user, token, handleLogin, handleRegister, getUserInfo, updateUserInfo, likeUser, unlikedUser }
+    return { user, token, handleLogin, handleRegister, handleLogout, getUserInfo, updateUserInfo, likeUser, unlikedUser }
 })

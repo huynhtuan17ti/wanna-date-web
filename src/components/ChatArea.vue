@@ -40,9 +40,10 @@ const getAvatar = (user_side: boolean) => {
     return user_side ? user.value?.avatar_url : chatUser.value?.avatar_url
 }
 
-const onSend = () => {
+const onSend = async () => {
     if (input.value === '' || chatThread.value === undefined) return
     messageStore.sendMessage(input.value)
+    await messageStore.fetchAllMessages()
     input.value = ''
     // TODO: temporary fix
     scrollbarRef.value?.setScrollTop(100000000)

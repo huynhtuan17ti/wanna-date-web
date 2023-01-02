@@ -15,8 +15,8 @@ import { useManageStore } from '../stores/manage'
 const manageStore = useManageStore()
 const user = computed(() => manageStore.activeLikedUser)
 
-const decide = (choice: string) => {
-    if (choice === 'like') manageStore.accept()
+const decide = async (choice: string) => {
+    if (choice === 'like') await manageStore.accept()
     else manageStore.deny()
 }
 </script>

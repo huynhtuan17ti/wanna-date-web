@@ -15,10 +15,6 @@ import { computed, ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useManageStore } from '../stores/manage'
 
-onMounted(async () => {
-    await manageStore.getLikedUsers()
-})
-
 const router = useRouter()
 const manageStore = useManageStore()
 const likedUsers = reactive(manageStore.likedUserData)
