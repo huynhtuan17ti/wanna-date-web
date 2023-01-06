@@ -9,7 +9,6 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { imageData } from '../constants/image'
 const props = defineProps<{
     userSide: Boolean
     message: String

@@ -24,6 +24,7 @@
 import { useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
 import { useAccountStore } from '../stores/account'
+import { ElMessage } from 'element-plus'
 
 const router = useRouter()
 const accountStore = useAccountStore()
@@ -33,8 +34,20 @@ const onRegisterRoute = () => {
 }
 
 const onSubmit = async () => {
+    if (formReact.value.email === '' || formReact.value.password === '') {
+        ElMessage.error('Email and passowrd must not empty, login failed!')
+        return
+    }
+    if (!formReact.value.email.includes('@')) {
+        ElMessage.error('Wrong format on email, login failed!')
+        return
+    }
     const loginSuccess = await accountStore.handleLogin({ email: formReact.value.email, password: formReact.value.password })
     if (loginSuccess) router.push('/match')
+    else {
+        ElMessage.error('Please check your login information, login failed!')
+        return
+    }
 }
 
 const formReact = ref({

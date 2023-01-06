@@ -13,6 +13,7 @@ declare module '@vue/runtime-core' {
     ChatBox: typeof import('./components/ChatBox.vue')['default']
     ChatList: typeof import('./components/ChatList.vue')['default']
     ChatPage: typeof import('./views/ChatPage.vue')['default']
+    ElAlert: typeof import('element-plus/es')['ElAlert']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElContainer: typeof import('element-plus/es')['ElContainer']

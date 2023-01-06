@@ -42,6 +42,7 @@
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAccountStore } from '../stores/account'
+import { ElMessage } from 'element-plus'
 
 const router = useRouter()
 const accountStore = useAccountStore()
@@ -55,12 +56,25 @@ const regisFormReact = ref({
     gender: '',
     sexOrientation: '',
 })
+
 const onSubmitRegis = async () => {
+    if (regisFormReact.value.email === '' || regisFormReact.value.password === '') {
+        ElMessage.error('Email and passowrd must not empty, register failed!')
+        return
+    }
+    if (!regisFormReact.value.email.includes('@')) {
+        ElMessage.error('Wrong format on email, login failed!')
+        return
+    }
     const registerSuccess = await accountStore.handleRegister({
         email: regisFormReact.value.email,
         password: regisFormReact.value.password,
     })
     if (registerSuccess) router.push('/login')
+    else {
+        ElMessage.error('Please check your register information, register failed!')
+        return
+    }
 }
 </script>
 <style scoped lang="scss">

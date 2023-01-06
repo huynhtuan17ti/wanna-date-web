@@ -12,11 +12,11 @@ export const useAccountStore = defineStore('account', () => {
     const token = ref(localStorage.getItem('access_token') || '')
 
     async function handleLogin(user_info: { email: string; password: string }) {
-        const { data } = await login(user_info)
-        if (!data) return false
+        const res = await login(user_info)
+        if (res === undefined) return false
         // set token
-        token.value = data.jwt
-        localStorage.setItem('access_token', data.jwt)
+        token.value = res.data.jwt
+        localStorage.setItem('access_token', res.data.jwt)
         return true
     }
 

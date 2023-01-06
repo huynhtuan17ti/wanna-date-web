@@ -15,6 +15,11 @@
                 :avatar-url="getAvatar(item.side)"
             ></message-box>
         </el-scrollbar>
+
+        <div v-if="chatThread.length == 0" style="display: flex; flex-direction: column; align-items: center">
+            <el-image class="no-chat-image" :src="imageData.chat"></el-image>
+            <span class="no-chat-message">Let's start your first message, say hello! </span>
+        </div>
     </div>
 </template>
 
@@ -23,6 +28,8 @@ import { computed, ref, watch } from 'vue'
 import { ElScrollbar } from 'element-plus'
 import { useMessageStore } from '../stores/message'
 import { useAccountStore } from '../stores/account'
+import { ElMessage } from 'element-plus'
+import { imageData } from '../constants/image'
 
 // user
 const accountStore = useAccountStore()
@@ -40,8 +47,21 @@ const getAvatar = (user_side: boolean) => {
     return user_side ? user.value?.avatar_url : chatUser.value?.avatar_url
 }
 
+const sensitiveWordList = ['fuck', 'fucker', 'f**k', 'shit', 'fk', 'nigger', 'dick', 'cock']
+
+const checkSensitiveWords = (message: string) => {
+    for (let index = 0; index < sensitiveWordList.length; index++) {
+        if (message.toLowerCase().includes(sensitiveWordList[index])) return true
+    }
+    return false
+}
+
 const onSend = async () => {
     if (input.value === '' || chatThread.value === undefined) return
+    if (checkSensitiveWords(input.value)) {
+        ElMessage.error('The message is not sent, you are using sensitive words.')
+        return
+    }
     messageStore.sendMessage(input.value)
     await messageStore.fetchAllMessages()
     input.value = ''
@@ -82,5 +102,14 @@ const onSend = async () => {
             margin-left: 12px;
         }
     }
+}
+.no-chat-image {
+    width: 8vw;
+    height: 8vw;
+    margin-top: 5vh;
+}
+.no-chat-message {
+    margin-top: 3vh;
+    color: #d85076;
 }
 </style>
