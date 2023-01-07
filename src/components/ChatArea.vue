@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="chatThread && chatUser">
         <div class="container__input-area">
             <span class="container__input-area__add-icon material-symbols-outlined"> sentiment_satisfied </span>
             <el-input class="container__input-area__input-message" v-model="input" placeholder="Aa" @keyup.enter="onSend()" />

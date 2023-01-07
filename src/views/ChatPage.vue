@@ -1,29 +1,49 @@
 <template>
-    <el-row class="container">
-        <el-col :span="16">
-            <div class="message-area">
-                <chat-area></chat-area>
-            </div>
-        </el-col>
-        <el-col :span="8">
-            <div class="setting-area" v-if="chatUser">
-                <el-image class="setting-area__user-image" :src="chatUser.avatar_url"></el-image>
-                <p>You and {{ chatUser.user_name }} liked each other a month ago</p>
-                <div class="setting-area__remove">
-                    <el-button type="danger">Block</el-button>
-                    <el-button type="warning">Unlike</el-button>
+    <div>
+        <el-row class="container">
+            <el-col :span="16">
+                <div class="message-area">
+                    <chat-area></chat-area>
                 </div>
-            </div>
-        </el-col>
-    </el-row>
+            </el-col>
+            <el-col :span="8">
+                <div class="setting-area" v-if="chatUser">
+                    <el-image class="setting-area__user-image" :src="chatUser.avatar_url"></el-image>
+                    <p>You and {{ chatUser.user_name }} liked each other a month ago</p>
+                    <div class="setting-area__remove">
+                        <el-button type="warning" @click="centerDialogVisible = true">Unlike</el-button>
+                    </div>
+                </div>
+            </el-col>
+        </el-row>
+        <el-dialog v-model="centerDialogVisible" title="Warning" width="30%" align-center>
+            <span>Do you sure that you want to unlike this user?</span>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="centerDialogVisible = false">Cancel</el-button>
+                    <el-button type="primary" @click="onUnlikeUser()"> Confirm </el-button>
+                </span>
+            </template>
+        </el-dialog>
+    </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useMessageStore } from '../stores/message'
+import { useAccountStore } from '../stores/account'
 
 const messageStore = useMessageStore()
+const accountStore = useAccountStore()
 const chatUser = computed(() => messageStore.chatUser)
+
+const centerDialogVisible = ref(false)
+const onUnlikeUser = async () => {
+    centerDialogVisible.value = false
+    await accountStore.unlikedUser(chatUser.value.user)
+    await messageStore.fetchAllMessages(true)
+    messageStore.setActive(-1)
+}
 </script>
 
 <style scoped lang="scss">

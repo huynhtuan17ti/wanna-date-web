@@ -13,11 +13,11 @@ export const useMessageStore = defineStore('message', () => {
     let userMessageData = reactive<any>([])
     const activeIndex = ref(-1)
 
-    const chatThread = computed(() => (activeIndex.value >= 0 ? userMessageData[activeIndex.value].message : undefined))
-    const chatUser = computed(() => (activeIndex.value >= 0 ? userMessageData[activeIndex.value].user : undefined))
+    const chatThread = computed(() => (activeIndex.value >= 0 ? userMessageData[activeIndex.value]?.message : undefined))
+    const chatUser = computed(() => (activeIndex.value >= 0 ? userMessageData[activeIndex.value]?.user : undefined))
 
     function setActive(index: number) {
-        if (activeIndex.value >= 0) userMessageData[activeIndex.value].active = false
+        if (activeIndex.value >= 0 && activeIndex.value < userMessageData.length) userMessageData[activeIndex.value].active = false
 
         activeIndex.value = index
         if (activeIndex.value >= 0) userMessageData[activeIndex.value].active = true

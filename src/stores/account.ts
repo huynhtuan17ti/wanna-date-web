@@ -55,8 +55,8 @@ export const useAccountStore = defineStore('account', () => {
 
     async function unlikedUser(user_id: number) {
         if (user.value === undefined) return false
-        const { data } = await unlike_user(user.value.user, user_id)
-        if (!data) return false
+        const res = await unlike_user(user.value.user, user_id)
+        if (res === undefined) return false
         return true
     }
 

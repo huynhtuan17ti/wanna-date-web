@@ -43,7 +43,7 @@ export function get_users_liked() {
 }
 
 export function unlike_user(user_id_1: number, user_id_2: number) {
-    return api.delete<any>('/api/func/userliked/' + user_id_2 + '/' + user_id_1)
+    return api.delete<any>('/api/func/userliked/' + user_id_1 + '/' + user_id_2)
 }
 
 export function unmatch_user(user_id_1: number, user_id_2: number) {
