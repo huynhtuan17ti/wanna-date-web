@@ -14,16 +14,18 @@ import { onMounted, ref } from 'vue'
 import { useAccountStore } from '../stores/account'
 import { useUserStore } from '../stores/user'
 import { useManageStore } from '../stores/manage'
+import { useMessageStore } from '../stores/message'
 
 const userStore = useUserStore()
 const accountStore = useAccountStore()
 const manageStore = useManageStore()
+const messageStore = useMessageStore()
 const isFetching = ref(true)
 
 onMounted(async () => {
     await accountStore.getUserInfo()
     await userStore.getAllUsers()
-    await manageStore.getLikedUsers()
+    await Promise.all([await manageStore.getLikedUsers(), await messageStore.fetchAllMessages(true)])
     isFetching.value = false
 })
 </script>

@@ -17,10 +17,6 @@ import { computed, ref, reactive, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMessageStore } from '../stores/message'
 
-onMounted(async () => {
-    await messageStore.fetchAllMessages()
-})
-
 const router = useRouter()
 const messageStore = useMessageStore()
 const data = reactive(messageStore.userMessageData)
