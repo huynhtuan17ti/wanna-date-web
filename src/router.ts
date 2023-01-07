@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { useAccountStore } from '../src/stores/account'
 
 const routes: RouteRecordRaw[] = [
     {
@@ -20,18 +21,22 @@ const routes: RouteRecordRaw[] = [
             {
                 path: 'match',
                 component: () => import('./views/MatchPage.vue'),
+                meta: { requireAuth: true },
             },
             {
                 path: 'setting',
                 component: () => import('./views/SettingPage.vue'),
+                meta: { requireAuth: true },
             },
             {
                 path: 'chat',
                 component: () => import('./views/ChatPage.vue'),
+                meta: { requireAuth: true },
             },
             {
                 path: 'liked',
                 component: () => import('./views/LikedPage.vue'),
+                meta: { requireAuth: true },
             },
         ],
     },
@@ -44,5 +49,15 @@ const router = createRouter({
 })
 
 export { routes }
+
+router.beforeEach((to, from, next) => {
+    const accountStore = useAccountStore()
+    if (to.matched.some((record) => record.meta.requireAuth)) {
+        if (accountStore.token !== '') next()
+        else router.push('/login')
+    } else {
+        next()
+    }
+})
 
 export default router

@@ -30,6 +30,7 @@ export const useAccountStore = defineStore('account', () => {
         const { data } = await logout()
         if (!data) return false
         localStorage.clear()
+        token.value = ''
         return true
     }
 
