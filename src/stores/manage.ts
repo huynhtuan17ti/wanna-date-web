@@ -36,6 +36,7 @@ export const useManageStore = defineStore('manage', () => {
         if (!res.data) return false
         userLikedIds.value = await getUsersLiked()
 
+        likedUserData.splice(0)
         for (let index = 0; index < res.data.length; index++) {
             if (res.data[index].reactor_id_id !== accountStore.user?.user && !userLikedIds.value.includes(res.data[index].reactor_id_id)) {
                 const user_item = await userStore.getUserFromId(res.data[index].reactor_id_id)

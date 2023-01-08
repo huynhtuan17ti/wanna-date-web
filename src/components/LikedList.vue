@@ -1,17 +1,19 @@
 <template>
-    <liked-box
-        v-for="(item, index) in likedUsers"
-        :key="index"
-        :user-name="item.user_name"
-        :age="18"
-        :avatar-url="item.avatar_url"
-        :active="item.active"
-        @click="onClickChatBox(index)"
-    ></liked-box>
-    <div v-if="likedUsers.length == 0" style="display: flex; flex-direction: column; align-items: center">
-        <el-image class="no-like-image" :src="imageData.cry"></el-image>
-        <span class="no-like-message">No worries! Someone will like you</span>
-    </div>
+    <el-scrollbar>
+        <liked-box
+            v-for="(item, index) in likedUsers"
+            :key="index"
+            :user-name="item.user_name"
+            :age="18"
+            :avatar-url="item.avatar_url"
+            :active="item.active"
+            @click="onClickChatBox(index)"
+        ></liked-box>
+        <div v-if="likedUsers.length == 0" style="display: flex; flex-direction: column; align-items: center">
+            <el-image class="no-like-image" :src="imageData.cry"></el-image>
+            <span class="no-like-message">No worries! Someone will like you</span>
+        </div>
+    </el-scrollbar>
 </template>
 
 <script lang="ts" setup>
